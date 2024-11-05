@@ -1,3 +1,47 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+:root {
+    --mobile-container: 90%;
+    --desktop-container: 80%;
+    --desktop-max-width: 1500px;
+    --main-color: #6D7369
+}
+
+* {
+    outline: none;
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    font-family: "Urbanist", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    color: black;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+    background: #f5f5f5;
+}
+
+
+div {
+    margin: auto;
+}
+
+button, a {
+    cursor: pointer;
+}
+
+.container {
+    width: 90%;
+    margin: 0 auto;
+}
+
+ul {
+    padding: 0;
+    list-style: none;
+}
