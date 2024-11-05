@@ -1,15 +1,44 @@
 export default {
-    en: {
-      "menu.about": "About Us",
-      "menu.products": "Products",
-      "menu.sustainability": "Sustainability",
-      "menu.contacts": "Contacts"
-    },
-    pt: {
-      "menu.about": "Sobre Nós",
-      "menu.products": "Produtos",
-      "menu.sustainability": "Sustentabilidade",
-      "menu.contacts": "Contactos"
-    },
-  };
-  
+  en: {
+    "menu.home": "Início",
+    "menu.about": "About Us",
+    "menu.products": "Products",
+    "menu.sustainability": "Sustainability",
+    "menu.contacts": "Contacts",
+    "menu.terms": "Terms and Conditions",
+    "menu.privacy": "Privacy Policy",
+    "footer.title": "The chemistry that <br/> drives the future",
+    "footer.newsletter.text": "Excepteur sint occaecat cupidatat non proident sunt culpa qui offi cia deserunt mollit anim id est laborum. sed spiciatis unde.**",
+    "footer.newsletter.button": "Subscribe",
+    "footer.newsletter.invalidEmail": "Invalid Email!",
+    "footer.newsletter.invalidTerms": "You must accept the terms and conditions!",
+    "footer.newsletter.thanks": "Thanks",
+    "footer.newsletter.terms": "I have read and agree to the terms described.",
+    "footer.columns.text": "Our history is one of continuous innovation and commitment to quality.",
+    "footer.columns.address-title": "Address",
+    "footer.columns.address-text": "Rua Augusto Simões, 1042 <br /> 4425-626 Pedrouços <br /> Portugal",
+    "footer.columns.map": "Map",
+    "footer.columns.socials": "Social media",
+  },
+  pt: {
+    "menu.home": "Início",
+    "menu.about": "Sobre Nós",
+    "menu.products": "Produtos",
+    "menu.sustainability": "Sustentabilidade",
+    "menu.contacts": "Contactos",
+    "menu.terms": "Termos e Condições",
+    "menu.privacy": "Política de Privacidade",
+    "footer.title": "A química que<br /> impulsiona o futuro",
+    "footer.newsletter.text": "Excepteur sint occaecat cupidatat non proident sunt culpa qui offi cia deserunt mollit anim id est laborum. sed spiciatis unde.**",
+    "footer.newsletter.button": "Subscrever",
+    "footer.newsletter.invalidEmail": "Email Inválido!",
+    "footer.newsletter.invalidTerms": "É necessário aceitar os termos e condições!",
+    "footer.newsletter.thanks": "Obrigado",
+    "footer.newsletter.terms": "Li e concordo com os termos descritos.",
+    "footer.columns.text": "A nossa história é de inovação contínua e compromisso com a qualidade.",
+    "footer.columns.address-title": "Morada",
+    "footer.columns.address-text": "Rua Augusto Simões, 1042 <br /> 4425-626 Pedrouços <br /> Portugal",
+    "footer.columns.map": "Mapa",
+    "footer.columns.socials": "Redes Sociais",
+  },
+};
