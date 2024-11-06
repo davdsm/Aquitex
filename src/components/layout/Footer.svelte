@@ -216,6 +216,11 @@
 					justify-content: space-between;
 					align-items: center;
 					flex-wrap: wrap;
+
+					@media only screen and (max-width: 992px) {
+						width: 100%;
+					}
+
 					& > input {
 						background: white;
 						font-size: 15px;
@@ -334,7 +339,7 @@
 
 					@media only screen and (max-width: 992px) {
 						font-size: 12px;
-						margin: 20px 0 30px 0;
+						margin: 20px auto 30px auto;
 						line-height: 24px;
 						text-align: center;
 					}

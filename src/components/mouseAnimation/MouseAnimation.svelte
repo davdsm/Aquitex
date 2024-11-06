@@ -6,11 +6,13 @@
 	const cursorSize = 30;
 
 	let isHovering = false;
+	let hide = true;
 
 	const mouseX = tweened(0, { duration: 1000, easing: cubicOut });
 	const mouseY = tweened(0, { duration: 1000, easing: cubicOut });
 
 	const manageMouseMove = (e: MouseEvent) => {
+		hide = false;
 		const { clientX, clientY } = e;
 		mouseX.set(clientX - cursorSize / 2);
 		mouseY.set(clientY - cursorSize / 2);
@@ -39,7 +41,7 @@
 	});
 </script>
 
-<div class="cursorContainer">
+<div class="cursorContainer" class:hide={hide}>
 	<div
 		class="cursor"
 		class:hovering={isHovering}
@@ -56,6 +58,9 @@
 		height: 100vh;
 		pointer-events: none;
 		z-index: 9999;
+		&.hide {
+			display: none;
+		}
 	}
 
 	.cursor {
