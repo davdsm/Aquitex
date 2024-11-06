@@ -31,7 +31,6 @@
 		"vite": "^5.0.3"
 	},
 	"dependencies": {
-		"gsap": "^3.12.5",
 		"locomotive-scroll": "^5.0.0-beta.21",
 		"lottie-web": "^5.12.2"
 	}
