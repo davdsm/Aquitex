@@ -5,7 +5,7 @@
 	import Header from '../components/layout/Header.svelte';
 	import MouseAnimation from '../components/mouseAnimation/MouseAnimation.svelte';
 	import '../app.css';
-	
+
 	let { children } = $props();
 
 	onMount(() => {
@@ -24,5 +24,7 @@
 	main {
 		text-align: center;
 		height: 80vh;
+		max-width: 1720px;
+		margin: 0 auto;
 	}
 </style>

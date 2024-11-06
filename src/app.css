@@ -16,7 +16,8 @@
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
-   
+    font-size: 16px;
+
 }
 
 html,
@@ -24,7 +25,11 @@ body {
     margin: 0;
     padding: 0;
     scroll-behavior: smooth;
-    background: #f5f5f5;
+    background: rgb(245, 245, 245);
+    background: -moz-linear-gradient(0deg, #fff 81%, #eee 100%);
+    background: -webkit-linear-gradient(0deg, #fff 81%, #eee 100%);
+    background: linear-gradient(0deg, #fff 81%, #eee 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f5f5f5", endColorstr="#ffffff", GradientType=1);
 }
 
 
@@ -32,9 +37,11 @@ div {
     margin: auto;
 }
 
-button, a {
+button,
+a {
     cursor: pointer;
     color: black;
+    display: inline-block;
 }
 
 .container {
@@ -45,4 +52,16 @@ button, a {
 ul {
     padding: 0;
     list-style: none;
+}
+
+p.text {
+    font-size: 18px;
+    line-height: 32px;
+    color: #525256;
+}
+
+@media only screen and (max-width: 992px) {
+    * {
+        font-size: 8px;
+    }
 }

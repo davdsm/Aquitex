@@ -381,6 +381,8 @@
 
 					& > img {
 						filter: grayscale(1) invert(1) contrast(1);
+						z-index: 1;
+						position: relative;
 					}
 				}
 			}
