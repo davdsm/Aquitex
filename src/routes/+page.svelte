@@ -13,7 +13,7 @@
 			</p>
 			<div class="buttons">
 				<a href="/about" in:fly={{ duration: 300, delay: 600, y: 20 }}>Saber Mais</a>
-				<a href="/about" in:fly={{ duration: 300, delay: 630, y: 20 }} class="wicon">
+				<a href="/about" in:fly={{ duration: 300, delay: 700, y: 20 }} class="wicon">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						fill="none"
