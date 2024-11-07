@@ -13,7 +13,7 @@
 			</p>
 			<div class="buttons">
 				<a href="/about" in:fly={{ duration: 300, delay: 600, y: 20 }}>Saber Mais</a>
-				<a href="/about" in:fly={{ duration: 300, delay: 700, y: 20 }} class="wicon">
+				<a aria-label="icon" href="/about" in:fly={{ duration: 300, delay: 700, y: 20 }} class="wicon">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						fill="none"
@@ -101,6 +101,11 @@
 						border-radius: 50px;
 						width: 31%;
 						text-align: center;
+						transition: all ease 0.2s;
+						&:hover {
+							transform: translateY(-5px);
+							box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+						}
 						&.wicon {
 							padding: 1.25rem;
 							width: 1.66666667rem;

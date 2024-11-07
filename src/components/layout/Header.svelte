@@ -63,14 +63,14 @@
 	});
 </script>
 
-<header>
+<header in:fly={{ duration: 300, delay: 300, y: -20 }}>
 	<div id="header" class="container">
 		<div id="logo">
 			<a href="/">
 				<img src="logo.png" alt="Aquitex Logo" />
 			</a>
 		</div>
-		<nav>
+		<nav in:fly={{ duration: 300, delay: 500, y: 20 }}>
 			<ul>
 				{#each menu as item}
 					<li>
