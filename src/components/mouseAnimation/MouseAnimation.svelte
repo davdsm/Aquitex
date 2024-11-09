@@ -41,7 +41,7 @@
 	});
 </script>
 
-<div class="cursorContainer" class:hide={hide}>
+<div class="cursorContainer" class:hide>
 	<div
 		class="cursor"
 		class:hovering={isHovering}
@@ -61,6 +61,9 @@
 		&.hide {
 			display: none;
 		}
+		@media only screen and (max-width: 992px) {
+			display: none;
+		}
 	}
 
 	.cursor {
@@ -71,7 +74,9 @@
 		border-radius: 50%;
 		pointer-events: none;
 		border: 1px solid black;
-		transition: width ease 1s, height ease 1s;
+		transition:
+			width ease 1s,
+			height ease 1s;
 		&.hovering {
 			width: 45px;
 			height: 45px;

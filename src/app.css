@@ -60,8 +60,41 @@ p.text {
     color: #525256;
 }
 
+.intro {
+    margin: 0;
+    text-align: left;
+}
+
+.intro>span {
+    font-size: 1rem;
+    font-weight: bold;
+    padding-bottom: 1.125rem;
+    border-bottom: 1px solid #c0c0c0;
+    width: 100%;
+    display: block;
+}
+
+.intro h2 {
+    font-size: 4rem;
+    font-weight: 600;
+    width: 50%;
+    max-width: 44.375rem;
+    margin: 1.875rem 0;
+}
+
 @media only screen and (max-width: 992px) {
     * {
         font-size: 8px;
+    }
+
+    .intro h2 {
+        width: 100%;
+        text-align: left;
+        max-width: unset;
+    }
+
+    p.text {
+        font-size: 12px;
+        line-height: 20px;
     }
 }
