@@ -89,7 +89,7 @@
 				<button
 					id="hamburger"
 					onclick={switchBurger}
-					in:fly={{ delay: 1400, duration: 1000, y: -50 }}
+					in:fly={{ duration: 300, delay: 550, y: 0 }}
 					bind:this={hamburgerIcon}
 				>
 					<!-- Hamburger will appear here -->

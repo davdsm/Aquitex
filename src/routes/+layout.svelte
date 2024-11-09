@@ -42,7 +42,7 @@
 	}
 	main {
 		text-align: center;
-		height: 80vh;
+		
 		max-width: 1720px;
 		margin: 0 auto;
 	}
