@@ -135,6 +135,10 @@
 			}
 
 			& > p {
+				@media only screen and (max-width: 992px) {
+					font-size: 20px;
+					line-height: 25px;
+				}
 			}
 			& > .buttons {
 				margin: 30px 0 0 0;
