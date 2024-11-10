@@ -111,10 +111,15 @@
 				text-align: left;
 				width: 30%;
 				margin: 0 1.875rem 0 0;
+				transition: all ease 1s;
+				
 				@media only screen and (max-width: 992px) {
 					margin: 0 0 1.875rem 0;
 					width: calc(100% - 6.25rem);
 					 max-width: unset;
+				}
+				&:hover {
+					transform: translateY(-15px);
 				}
 				& > img {
 					width: 2rem;

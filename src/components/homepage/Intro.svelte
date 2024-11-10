@@ -1,7 +1,12 @@
-<script>
+<script lang="ts">
 	import { fly } from 'svelte/transition';
 	import { t } from '$lib/i18n/i18n';
+
+	let sy: number;
+
 </script>
+
+<svelte:window bind:scrollY={sy}/>
 
 <div id="intro">
 	<div class="left">
@@ -81,7 +86,7 @@
 				/>
 			</svg>
 		</div>
-		<div class="labs" in:fly={{ duration: 300, delay: 900, y: 20 }}>
+		<div class="labs" in:fly={{ duration: 300, delay: 900, y: 20 }} style='transform: translate(0,{sy * 0.1}px)'>
 			<h3>{$t('labs')}</h3>
 			<p class="text">{$t('labs.text')}</p>
 			<a href="/products" in:fly={{ duration: 300, delay: 950, y: 20 }}>{$t('labs')}</a>

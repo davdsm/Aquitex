@@ -1,7 +1,11 @@
 <script lang="ts">
 	import { fly } from 'svelte/transition';
 	import { t } from '$lib/i18n/i18n';
+	let sy: number;
+
 </script>
+
+<svelte:window bind:scrollY={sy}/>
 
 <div id="about">
 	<div class="left">
@@ -48,7 +52,7 @@
 			height="100%"
 			alt="Inspiring Chemical Solutions"
 		/>
-		<div>
+		<div style='transform: translate(0,{-sy * 0.05}px)'>
 			<h6>{$t('about.headquarters.size')}</h6>
 			<p class="text">{$t('about.headquarters.text')}</p>
 		</div>
