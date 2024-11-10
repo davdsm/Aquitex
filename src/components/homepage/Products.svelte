@@ -57,8 +57,8 @@
 				</defs>
 			</svg>
 			<div class="info">
-				<span>Laboratório</span>
-				<h6>Departamento Têxtil</h6>
+				<span>{$t('labs')}</span>
+				<h6>{$t('products.textile')}</h6>
 			</div>
 		</a>
 		<a href="/products/textile" class="product ceramic">
@@ -87,8 +87,8 @@
 				</defs>
 			</svg>
 			<div class="info">
-				<span>Laboratório</span>
-				<h6>Departamento Cerâmica</h6>
+				<span>{$t('labs')}</span>
+				<h6>{$t('products.ceramic')}</h6>
 			</div>
 		</a>
 		<a href="/products/textile" class="product estetic">
@@ -117,8 +117,8 @@
 				</defs>
 			</svg>
 			<div class="info">
-				<span>Laboratório</span>
-				<h6>Detergência e Cosmética</h6>
+				<span>{$t('labs')}</span>
+				<h6>{$t('products.estic')}</h6>
 			</div>
 		</a>
 	</div>
