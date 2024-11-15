@@ -87,7 +87,7 @@
 	</div>
 	<div id="middle-footer">
 		<div id="aquitex">
-			<img src="logo.png" alt="Aquitex Logo" width="117px" height="52px" />
+			<img src="/logo.png" alt="Aquitex Logo" width="117px" height="52px" />
 			<p>
 				{$t('footer.columns.text')}
 			</p>

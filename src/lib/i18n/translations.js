@@ -123,5 +123,9 @@ export default {
     "page.about.policy.title": `Soluções Eficazes e Personalizadas`,
     "policy": `Política`,
     "page.about.policy.text": `A Aquitex assume um compromisso, formalizando-o através da política, de construir uma liderança sustentável através da melhoria contínua, tendo como ferramentas a elevada qualidade, inovação e dedicação dos colaboradores, numa base de crescimento focalizado na evolução dos diferentes segmentos de mercado e na satisfação de todas as partes interessadas relevantes..`,
+    "lab.ceramic.title": `Laboratório de Cerâmica`,
+    "lab.ceramic.text": `O nosso Laboratório de Cerâmica é um espaço dedicado à inovação e ao desenvolvimento de soluções químicas específicas para a indústria cerâmica. Com uma equipa de profissionais altamente qualificados, realizamos pesquisas e ensaios rigorosos para garantir que cada produto atenda aos mais altos padrões de qualidade e eficiência.`,
+    "lab.textile.title": `Laboratório Têxtil`,
+    "lab.textile.text": `O Laboratório Têxtil da Aquitex é um centro de excelência dedicado ao desenvolvimento de produtos químicos que atendem às necessidades específicas da indústria têxtil. Com mais de 50 anos de experiência, a nossa equipa combina conhecimento técnico e criatividade para criar soluções inovadoras que melhoram a qualidade e a sustentabilidade dos tecidos.`,
   },
 };

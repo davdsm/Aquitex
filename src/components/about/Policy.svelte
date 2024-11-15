@@ -120,6 +120,8 @@
 		justify-content: space-between;
 		align-items: flex-start;
 		flex-wrap: wrap;
+		border-bottom: 1px solid #ebebeb;
+		padding-bottom: 10rem;
 		@media only screen and (max-width: 992px) {
 			flex-flow: column;
 		}
@@ -270,7 +272,7 @@
 							justify-content: center;
 							align-items: center;
 							&::after {
-								content: url('helpers/small-corner.svg');
+								content: url('/helpers/small-corner.svg');
 								position: absolute;
 								top: -2.1875rem;
 								right: 0;
@@ -284,7 +286,7 @@
 								}
 							}
 							&::before {
-								content: url('helpers/small-corner.svg');
+								content: url('/helpers/small-corner.svg');
 								position: absolute;
 								bottom: 0;
 								left: -2.1875rem;

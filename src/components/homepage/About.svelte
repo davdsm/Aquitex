@@ -125,10 +125,11 @@
 					@media only screen and (max-width: 992px) {
 						width: calc(100% - 6.25rem);
 						margin: 4.5rem 0 0;
+						transform: none !important;
 					}
 
 					&::after {
-						content: url('helpers/big-corner.svg');
+						content: url('/helpers/big-corner.svg');
 						position: absolute;
 						top: -2px;
 						right: 0px;

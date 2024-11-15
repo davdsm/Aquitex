@@ -1,5 +1,14 @@
 <script>
-	import { fly } from 'svelte/transition';
+	import Intro from '../../../components/labs/Intro.svelte';
+	import Gallery from '../../../components/labs/Gallery.svelte';
+
+	const images = [
+		'/labs/textile/1.jpg',
+		'/labs/textile/2.jpg',
+		'/labs/textile/3.jpg',
+		'/labs/textile/4.jpg'
+	];
 </script>
 
-<h1 in:fly={{ duration: 300, delay: 400, y: 20 }} out:fly={{ duration: 300, y: 20 }}>Textile</h1>
+<Intro title="lab.textile.title" text="lab.textile.text" />
+<Gallery {images} lab="lab.textile.title" />

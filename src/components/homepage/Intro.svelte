@@ -260,7 +260,7 @@
 						}
 
 						&::after {
-							content: url('helpers/corner-red.svg');
+							content: url('/helpers/corner-red.svg');
 							width: 35px;
 							height: 35px;
 							display: block;
@@ -289,13 +289,14 @@
 				&.labs {
 					width: 25%;
 					padding: 50px;
-					background: url('homepage/intro/labs.jpg');
+					background: url('/homepage/intro/labs.jpg');
 					background-position: center center;
 					background-repeat: no-repeat;
 					background-size: cover;
 					border-radius: 2.175rem;
 					@media only screen and (max-width: 992px) {
 						width: calc(100% - 100px);
+						transform: none !important;
 					}
 					& > h3 {
 						font-size: 2.25rem;

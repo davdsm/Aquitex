@@ -216,7 +216,7 @@
 					}
 				}
 				&::after {
-					content: url('helpers/big-corner.svg');
+					content: url('/helpers/big-corner.svg');
 					position: absolute;
 					top: -2px;
 					right: 0px;
@@ -227,7 +227,7 @@
 				}
 				&.textile {
 					width: 45%;
-					background: url('homepage/products/textil.png');
+					background: url('/homepage/products/textil.png');
 					background-position: center center;
 					background-size: cover;
 					background-repeat: no-repeat;
@@ -238,7 +238,7 @@
 				}
 				&.ceramic {
 					width: 25%;
-					background: url('homepage/products/ceramic.png');
+					background: url('/homepage/products/ceramic.png');
 					background-position: center center;
 					background-size: cover;
 					background-repeat: no-repeat;

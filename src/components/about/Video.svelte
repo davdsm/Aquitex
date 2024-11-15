@@ -80,14 +80,14 @@
 			}
 			& > .play {
 				width: 20%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
 
 				@media only screen and (max-width: 992px) {
 					width: 30%;
 				}
 
-				display: flex;
-				justify-content: center;
-				align-items: center;
 				& > button {
 					width: 4.125rem;
 					height: 4.125rem;
@@ -144,11 +144,11 @@
 
 						&.first {
 							width: 8.125rem;
-							background-image: url('about/bean1.png');
+							background-image: url('/about/bean1.png');
 						}
 						&.second {
 							width: 12rem;
-							background-image: url('about/bean2.png');
+							background-image: url('/about/bean2.png');
 						}
 					}
 				}

@@ -159,7 +159,7 @@
 			display: flex;
 
 			&::after {
-				content: url('helpers/small-corner.svg');
+				content: url('/helpers/small-corner.svg');
 				position: absolute;
 				top: -2.1875rem;
 				right: 0;
@@ -173,7 +173,7 @@
 				}
 			}
 			&::before {
-				content: url('helpers/small-corner.svg');
+				content: url('/helpers/small-corner.svg');
 				position: absolute;
 				bottom: 0;
 				left: -2.1875rem;

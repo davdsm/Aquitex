@@ -67,7 +67,7 @@
 	<div id="header" class="container">
 		<div id="logo">
 			<a href="/">
-				<img src="logo.png" alt="Aquitex Logo" />
+				<img src="/logo.png" alt="Aquitex Logo" />
 			</a>
 		</div>
 		<nav in:fly={{ duration: 300, delay: 500, y: 20 }}>
@@ -174,7 +174,7 @@
 				justify-content: center;
 				align-items: center;
 				&::after {
-					content: url('helpers/corner.svg');
+					content: url('/helpers/corner.svg');
 					width: 70px;
 					height: 70px;
 					display: block;
@@ -183,7 +183,7 @@
 					right: -70px;
 				}
 				&::before {
-					content: url('helpers/corner.svg');
+					content: url('/helpers/corner.svg');
 					width: 70px;
 					height: 70px;
 					display: block;
