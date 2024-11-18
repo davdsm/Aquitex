@@ -1,21 +1,30 @@
 <script>
-	import { fly } from 'svelte/transition';
 	import Image from '../../components/contacts/Image.svelte';
+	import Form from '../../components/contacts/Form.svelte';
+	import Contacts from '../../components/contacts/Contacts.svelte';
 </script>
 
 <div id="contacts">
-	<Image />
-	<div class="form"></div>
+	<div>
+		<Image />
+		<Form />
+	</div>
+
+	<Contacts />
 </div>
 
 <style lang="scss">
 	#contacts {
-		display: flex;
-		justify-content: center;
-		align-items: center;
 		margin: 3rem auto;
-		& & > .form {
-			width: 50%;
+
+		& > div {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			padding: 3%;
+			background: #f5f5f5;
+			border-radius: 1.875rem;
+			flex-wrap: wrap;
 		}
 	}
 </style>

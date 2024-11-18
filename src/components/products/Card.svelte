@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { t } from '$lib/i18n/i18n';
 	import { fly } from 'svelte/transition';
 
 	export let project: {
@@ -37,11 +38,11 @@
 		</defs>
 	</svg>
 	<div class="image">
-		<img src={project.image} alt={project.title} />
+		<img src={project.image} alt={$t(project.title)} />
 	</div>
 	<div class="description">
-		<h1>{project.title}</h1>
-		<p>{project.description}</p>
+		<h1>{$t(project.title)}</h1>
+		<p>{$t(project.description)}</p>
 	</div>
 </a>
 

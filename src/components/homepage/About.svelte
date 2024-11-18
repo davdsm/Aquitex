@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { fly } from 'svelte/transition';
 	import { t } from '$lib/i18n/i18n';
 	let sy: number;
 

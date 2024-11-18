@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { fly } from 'svelte/transition';
 	import Card from '../../components/products/Card.svelte';
 
 	const projects: {
@@ -11,23 +10,22 @@
 	}[] = [
 		{
 			id: 'textile',
-			title: 'Departamento Têxtil',
-			description: 'Soluções químicas que elevam a qualidade e durabilidade dos tecidos.',
+			title: 'products.textile',
+			description: 'products.textile.text',
 			image: '/products/textile.jpg',
 			link: '/products/textile'
 		},
 		{
 			id: 'ceramic',
-			title: 'Departamento de Cerâmica',
-			description: 'Produtos químicos que aprimoram a resistência e beleza da cerâmica.',
+			title: 'products.ceramic',
+			description: 'products.ceramic.text',
 			image: '/products/ceramic.jpg',
 			link: '/products/ceramic'
 		},
 		{
 			id: 'cosmetic',
-			title: 'Detergência e Cosmética',
-			description:
-				'Criamos soluções químicas de alta qualidade para detergentes e cosméticos, combinando eficácia com responsabilidade ambiental para atender às necessidades do setor de cuidados pessoais e de limpeza',
+			title: 'products.estic',
+			description: 'products.cosmetic.text',
 			image: '/products/cosmetic.jpg',
 			link: '/products/cosmetic'
 		}
