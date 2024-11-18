@@ -32,6 +32,12 @@ body {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f5f5f5", endColorstr="#ffffff", GradientType=1);
 }
 
+html {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
 
 div {
     margin: auto;

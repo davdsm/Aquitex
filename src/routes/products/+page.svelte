@@ -34,10 +34,10 @@
 	];
 </script>
 
-<div id="products" in:fly={{ duration: 300, delay: 400, y: 20 }} out:fly={{ duration: 300, y: 20 }}>
-	{#each projects as project}
-		<Card {project} />
-	{/each}
+<div id="products">
+	<Card project={projects[0]} delay={400} />
+	<Card project={projects[1]} delay={500} />
+	<Card project={projects[2]} delay={600} />
 </div>
 
 <style lang="scss">

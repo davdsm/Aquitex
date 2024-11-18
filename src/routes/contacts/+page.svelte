@@ -1,6 +1,21 @@
 <script>
 	import { fly } from 'svelte/transition';
+	import Image from '../../components/contacts/Image.svelte';
 </script>
-<h1 in:fly={{ duration: 300, delay: 400, y: 20 }} out:fly={{ duration: 300, y: 20 }}>
-    Contacts
-</h1>
+
+<div id="contacts">
+	<Image />
+	<div class="form"></div>
+</div>
+
+<style lang="scss">
+	#contacts {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin: 3rem auto;
+		& & > .form {
+			width: 50%;
+		}
+	}
+</style>
