@@ -31,7 +31,6 @@
 
 	const changeLang = () => {
 		$locale = $locale === 'en' ? 'pt' : 'en';
-		console.log(`changing language to...${$locale}`);
 	};
 
 	const switchBurger = () => {

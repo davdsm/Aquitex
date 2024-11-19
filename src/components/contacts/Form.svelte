@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { sendMail } from '$lib';
 	import { t } from '$lib/i18n/i18n';
 	import { onMount } from 'svelte';
 	import { fly } from 'svelte/transition';
@@ -6,10 +7,12 @@
 	let checkboxIcon: HTMLElement;
 	let checkboxDiretction = 1;
 	let checkboxAnimation: any;
-	let error = $state('');
-	let name = $state('');
-	let email = $state('');
-	let message = $state('');
+	let error: string = $state('');
+	let name: string = $state('');
+	let email: string = $state('');
+	let message: string = $state('');
+	let isLoading: boolean = $state(false);
+	let success: boolean = $state(false);
 
 	const submitForm = async (e: Event) => {
 		e.preventDefault();
@@ -33,7 +36,16 @@
 			return;
 		}
 
-		alert('mensagem enviada');
+		isLoading = true;
+
+		setTimeout(async () => {
+			success = await sendMail(name, email, message);
+			name = '';
+			email = '';
+			message = '';
+			isLoading = false;
+		}, 2000);
+
 	};
 
 	const handleClickCheckbox = () => {
@@ -61,7 +73,9 @@
 </script>
 
 <div class="form">
-	<h1 in:fly={{ duration: 300, delay: 500, y: 20 }} out:fly={{ duration: 300, y: 20 }}>{$t('contacts.title')}</h1>
+	<h1 in:fly={{ duration: 300, delay: 500, y: 20 }} out:fly={{ duration: 300, y: 20 }}>
+		{$t('contacts.title')}
+	</h1>
 	<form action="" method="get" onsubmit={submitForm}>
 		<input
 			type="text"
@@ -102,11 +116,15 @@
 			in:fly={{ duration: 300, delay: 1000, y: 20 }}
 			out:fly={{ duration: 300, y: 20 }}
 		>
-			{$t('contacts.send')}
+			{isLoading ? $t('contacts.sending') : $t('contacts.send')}
 		</button>
 	</form>
 	{#if error.length > 0}
 		<span class="error" in:fly={{ duration: 300, delay: 500, y: 20 }}>{$t(error)}</span>
+	{/if}
+
+	{#if success}
+		<span class="success" in:fly={{ duration: 300, delay: 500, y: 20 }}>{$t('contacts.sent')}</span>
 	{/if}
 </div>
 
@@ -172,7 +190,8 @@
 				}
 			}
 		}
-		& > .error {
+		& > .error,
+		& > .success {
 			background: #d14338;
 			padding: 0.625rem 1.25rem;
 			color: #fff;
@@ -180,6 +199,10 @@
 			width: auto;
 			margin: 0;
 			float: left;
+		}
+
+		& > .success {
+			background: #272727;
 		}
 	}
 </style>

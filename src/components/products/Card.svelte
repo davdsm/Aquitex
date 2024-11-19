@@ -14,7 +14,7 @@
 </script>
 
 <a
-	href="/products"
+	href="{project.link}"
 	class="product-card {project.id}"
 	in:fly={{ duration: 800, delay: delay, y: 20 }}
 	out:fly={{ duration: 300, y: 20 }}

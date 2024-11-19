@@ -1,0 +1,212 @@
+{
+    "textile": [
+        {
+            "title": "products.list.textile.preparation",
+            "list": [
+                "products.list.textile.preparation.dispersants_and_sequestrants",
+                "products.list.textile.preparation.detergents",
+                "products.list.textile.preparation.stabilizers",
+                "products.list.textile.preparation.stabilizers_duplicate",
+                "products.list.textile.preparation.wetting_agents",
+                "products.list.textile.preparation.wetting_detergents"
+            ]
+        },
+        {
+            "title": "products.list.textile.dyeing",
+            "list": [
+                "products.list.textile.dyeing.anti_foam_agents",
+                "products.list.textile.dyeing.anti_static_agents",
+                "products.list.textile.dyeing.anti_reducing_agents",
+                "products.list.textile.dyeing.anti_creases",
+                "products.list.textile.dyeing.oxidizing_agents",
+                "products.list.textile.dyeing.reducing_agents",
+                "products.list.textile.dyeing.carriers",
+                "products.list.textile.dyeing.dyes",
+                "products.list.textile.dyeing.dispersants_and_sequestrants",
+                "products.list.textile.dyeing.fixatives",
+                "products.list.textile.dyeing.levelers",
+                "products.list.textile.dyeing.wetting_agents",
+                "products.list.textile.dyeing.buffer_solution"
+            ]
+        },
+        {
+            "title": "products.list.textile.finishing",
+            "list": [
+                "products.list.textile.finishing.functional_finishes",
+                "products.list.textile.finishing.softeners",
+                "products.list.textile.finishing.non_slip",
+                "products.list.textile.finishing.fluorocarbons",
+                "products.list.textile.finishing.polyethylene",
+                "products.list.textile.finishing.polyurethanes",
+                "products.list.textile.finishing.resins",
+                "products.list.textile.finishing.acrylic_resins",
+                "products.list.textile.finishing.flame_retardants",
+                "products.list.textile.finishing.silicones"
+            ]
+        },
+        {
+            "title": "products.list.textile.printing",
+            "list": [
+                "products.list.textile.printing.auxiliaries_for_water_based_paints",
+                "products.list.textile.printing.gravure_baths",
+                "products.list.textile.printing.palette_glue",
+                "products.list.textile.printing.fashion_effects_glitter",
+                "products.list.textile.printing.fashion_effects_caviar",
+                "products.list.textile.printing.fashion_effects_mytex",
+                "products.list.textile.printing.fashion_effects_flock_transfer",
+                "products.list.textile.printing.water_based_paints",
+                "products.list.textile.printing.plastisol_paints",
+                "products.list.textile.printing.silicone_paints",
+                "products.list.textile.printing.cleaning_products"
+            ]
+        }
+    ],
+    "ceramic": [
+        {
+            "title": "products.list.ceramic.ceramic_plasters",
+            "list": [
+                "products.list.ceramic.ceramic_plasters.filling",
+                "products.list.ceramic.ceramic_plasters.masters",
+                "products.list.ceramic.ceramic_plasters.press",
+                "products.list.ceramic.ceramic_plasters.roller"
+            ]
+        },
+        {
+            "title": "products.list.ceramic.ceramic_pastes",
+            "list": [
+                "products.list.ceramic.ceramic_pastes.faience",
+                "products.list.ceramic.ceramic_pastes.stoneware",
+                "products.list.ceramic.ceramic_pastes.porcelain",
+                "products.list.ceramic.ceramic_pastes.terracotta"
+            ]
+        },
+        {
+            "title": "products.list.ceramic.glazes",
+            "list": [
+                "products.list.ceramic.glazes.colored",
+                "products.list.ceramic.glazes.metallic",
+                "products.list.ceramic.glazes.matte",
+                "products.list.ceramic.glazes.opaque",
+                "products.list.ceramic.glazes.reactive",
+                "products.list.ceramic.glazes.selene",
+                "products.list.ceramic.glazes.transparent"
+            ]
+        },
+        {
+            "title": "products.list.ceramic.colorants",
+            "list": [
+                "products.list.ceramic.colorants.for_pastes",
+                "products.list.ceramic.colorants.for_glazes"
+            ]
+        },
+        {
+            "title": "products.list.ceramic.engobes",
+            "list": [
+                "products.list.ceramic.engobes.white_engobe",
+                "products.list.ceramic.engobes.colored_engobe"
+            ]
+        },
+        {
+            "title": "products.list.ceramic.raw_materials",
+            "list": [
+                "products.list.ceramic.raw_materials.alumina",
+                "products.list.ceramic.raw_materials.rutile_sand",
+                "products.list.ceramic.raw_materials.zircon_sand",
+                "products.list.ceramic.raw_materials.barium_carbonate",
+                "products.list.ceramic.raw_materials.calcium_carbonate",
+                "products.list.ceramic.raw_materials.lithium_carbonate",
+                "products.list.ceramic.raw_materials.dolomite",
+                "products.list.ceramic.raw_materials.rutile_flour",
+                "products.list.ceramic.raw_materials.silica_flour",
+                "products.list.ceramic.raw_materials.zircon_flour",
+                "products.list.ceramic.raw_materials.feldspar",
+                "products.list.ceramic.raw_materials.hematite",
+                "products.list.ceramic.raw_materials.magnetite",
+                "products.list.ceramic.raw_materials.nepheline",
+                "products.list.ceramic.raw_materials.opacifier",
+                "products.list.ceramic.raw_materials.wollastonite"
+            ]
+        },
+        {
+            "title": "products.list.ceramic.oxides",
+            "list": [
+                "products.list.ceramic.oxides.cobalt_oxide",
+                "products.list.ceramic.oxides.copper_oxide",
+                "products.list.ceramic.oxides.chromium_oxide",
+                "products.list.ceramic.oxides.tin_oxide",
+                "products.list.ceramic.oxides.iron_oxide_130_960",
+                "products.list.ceramic.oxides.yellow_iron_oxide",
+                "products.list.ceramic.oxides.malaga_oxide",
+                "products.list.ceramic.oxides.manganese_oxide_a45",
+                "products.list.ceramic.oxides.nickel_black_oxide",
+                "products.list.ceramic.oxides.nickel_green_oxide",
+                "products.list.ceramic.oxides.titanium_oxide",
+                "products.list.ceramic.oxides.zinc_oxide"
+            ]
+        },
+        {
+            "title": "products.list.ceramic.decorative_paints",
+            "list": [
+                "products.list.ceramic.decorative_paints.lusters_3rd_firing",
+                "products.list.ceramic.decorative_paints.gold_3rd_firing",
+                "products.list.ceramic.decorative_paints.platinum_3rd_firing",
+                "products.list.ceramic.decorative_paints.paints_780_830_celsius_3rd_firing",
+                "products.list.ceramic.decorative_paints.paints_950_1050_celsius_2nd_firing"
+            ]
+        },
+        {
+            "title": "products.list.ceramic.additives_and_media",
+            "list": [
+                "products.list.ceramic.additives_and_media.suspending_agent",
+                "products.list.ceramic.additives_and_media.reological_additive",
+                "products.list.ceramic.additives_and_media.bentonite",
+                "products.list.ceramic.additives_and_media.cmc",
+                "products.list.ceramic.additives_and_media.release_agent",
+                "products.list.ceramic.additives_and_media.dispersant_and_deflocculant",
+                "products.list.ceramic.additives_and_media.paste_fluidifier",
+                "products.list.ceramic.additives_and_media.aqueous_medium",
+                "products.list.ceramic.additives_and_media.oily_medium",
+                "products.list.ceramic.additives_and_media.peptapon",
+                "products.list.ceramic.additives_and_media.sodium_silicate"
+            ]
+        },
+        {
+            "title": "products.list.ceramic.sheets",
+            "list": [
+                "products.list.ceramic.sheets.copper",
+                "products.list.ceramic.sheets.silver",
+                "products.list.ceramic.sheets.gold"
+            ]
+        },
+        {
+            "title": "products.list.ceramic.accessories_for_ceramic_industry",
+            "list": [
+                "products.list.ceramic.accessories_for_ceramic_industry.rings",
+                "products.list.ceramic.accessories_for_ceramic_industry.densimeters",
+                "products.list.ceramic.accessories_for_ceramic_industry.finishing_sponges"
+            ]
+        }
+    ],
+    "cosmetic": [
+        {
+            "title": "products.list.cosmetic.phosphonates",
+            "list": [
+                "products.list.cosmetic.phosphonates.cublen"
+            ]
+        },
+        {
+            "title": "products.list.cosmetic.surfactants",
+            "list": [
+                "products.list.cosmetic.surfactants.anti_foaming_agents",
+                "products.list.cosmetic.surfactants.syndet_bases",
+                "products.list.cosmetic.surfactants.emollients",
+                "products.list.cosmetic.surfactants.emulsifiers",
+                "products.list.cosmetic.surfactants.hydrotropes",
+                "products.list.cosmetic.surfactants.functional_ingredients",
+                "products.list.cosmetic.surfactants.wetting_agents",
+                "products.list.cosmetic.surfactants.special_products",
+                "products.list.cosmetic.surfactants.surfactants"
+            ]
+        }
+    ]
+}
