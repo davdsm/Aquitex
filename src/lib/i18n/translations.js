@@ -247,7 +247,7 @@ export default {
     "menu.terms": "Termos e Condições",
     "menu.privacy": "Política de Privacidade",
     "footer.title": "A química que<br /> impulsiona o futuro",
-    "footer.newsletter.text": "Excepteur sint occaecat cupidatat non proident sunt culpa qui offi cia deserunt mollit anim id est laborum. sed spiciatis unde.**",
+    "footer.newsletter.text": "Mais de cinco décadas de experiência na criação de soluções químicas de alto desempenho. Subscreva a nossa newsletter para ficar a par das novidades.",
     "footer.newsletter.button": "Subscrever",
     "footer.newsletter.invalidEmail": "Email Inválido!",
     "footer.newsletter.invalidTerms": "É necessário aceitar os termos e condições!",

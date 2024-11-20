@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { t, locale } from '$lib/i18n/i18n';
+	import { t } from '$lib/i18n/i18n';
 	import { fly } from 'svelte/transition';
+	import { sendMail } from '$lib';
 
 	let checkboxIcon: HTMLElement;
 	let checkboxDiretction = 1;
@@ -14,7 +15,8 @@
 		checkboxIcon.click();
 	};
 
-	const submitForm = () => {
+	const submitForm = async (e: Event) => {
+		e.preventDefault();
 		error = '';
 		email = email.trim();
 		const validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -28,6 +30,9 @@
 		}
 
 		buttonText = '....';
+
+		await sendMail('Sem Nome', email, 'Subscrevi à newsletter!');
+
 		setTimeout(() => {
 			buttonText = 'footer.newsletter.thanks';
 			email = '';

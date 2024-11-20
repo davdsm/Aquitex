@@ -1,10 +1,16 @@
 <script lang="ts">
 	import { fly } from 'svelte/transition';
 	import { t } from '$lib/i18n/i18n';
-	let sy: number;
+	import Video from '../layout/Video.svelte';
+	let sy: number = $state(0);
+	let videoOpen: boolean = $state(false);
 
 	const openVideo = () => {
-		alert('video');
+		videoOpen = true;
+	};
+
+	const closeVideo = () => {
+		videoOpen = false;
 	};
 </script>
 
@@ -112,6 +118,9 @@
 			</a>
 		</div>
 	</div>
+	{#if videoOpen}
+		<Video close={closeVideo} />
+	{/if}
 </div>
 
 <style lang="scss">
@@ -227,8 +236,8 @@
 
 					@media only screen and (max-width: 992px) {
 						justify-content: center;
-                        align-items: center;
-                        width: 100%;
+						align-items: center;
+						width: 100%;
 					}
 
 					& > .card {
