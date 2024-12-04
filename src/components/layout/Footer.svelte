@@ -129,16 +129,10 @@
 			<h3>{$t('footer.columns.socials')}</h3>
 			<ul>
 				<li>
-					<a href="https://facebook.com" target="_blank">Facebook</a>
+					<a href="https://www.linkedin.com/company/aquitex/" target="_blank">Linkedin</a>
 				</li>
 				<li>
-					<a href="https://x.com" target="_blank">Twitter</a>
-				</li>
-				<li>
-					<a href="https://linkdin.com" target="_blank">Linkedin</a>
-				</li>
-				<li>
-					<a href="https://instagram.com" target="_blank">Instagram</a>
+					<a href="https://www.instagram.com/aquitex_/" target="_blank">Instagram</a>
 				</li>
 			</ul>
 		</div>

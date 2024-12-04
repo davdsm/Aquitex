@@ -1,4 +1,6 @@
 <script lang="ts">
+	import FaLinkedinIn from 'svelte-icons/fa/FaLinkedinIn.svelte';
+	import FaInstagram from 'svelte-icons/fa/FaInstagram.svelte';
 	import { onMount } from 'svelte';
 	import { t, locale } from '$lib/i18n/i18n';
 	import { fly } from 'svelte/transition';
@@ -78,6 +80,20 @@
 						>
 					</li>
 				{/each}
+				<li>
+					<a aria-label="button" href="https://www.instagram.com/aquitex_/" target="_blank">
+						<span>
+							<FaInstagram />
+						</span>
+					</a>
+				</li>
+				<li>
+					<a aria-label="button" href="https://www.linkedin.com/company/aquitex/" target="_blank">
+						<span>
+							<FaLinkedinIn />
+						</span>
+					</a>
+				</li>
 			</ul>
 		</nav>
 		<div id="lang">
@@ -231,6 +247,15 @@
 							font-size: 16px;
 							font-weight: 500;
 							transition: all ease 0.2s;
+
+							& > span {
+								width: 18px;
+								display: inline-block;
+								transition: all ease 0.2s;
+								&:hover {
+									opacity: 0.8;
+								}
+							}
 							&:hover {
 								opacity: 0.8;
 							}
