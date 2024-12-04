@@ -26,6 +26,10 @@
 			label: 'menu.sustainability'
 		},
 		{
+			url: '/tickets',
+			label: 'menu.tickets'
+		},
+		{
 			url: '/contacts',
 			label: 'menu.contacts'
 		}
@@ -76,8 +80,24 @@
 				{#each menu as item}
 					<li>
 						<a href={item.url} class:active={$page.url.pathname.includes(item.url)}
-							>{$t(item.label)}</a
-						>
+							>{$t(item.label)}
+
+							{#if item.url === '/tickets'}
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke-width="1.5"
+									stroke="currentColor"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 0 1 0 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 0 1 0-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375Z"
+									/>
+								</svg>
+							{/if}
+						</a>
 					</li>
 				{/each}
 				<li>
@@ -122,8 +142,26 @@
 							<a
 								href={item.url}
 								onclick={handleClick}
-								class:active={$page.url.pathname.includes(item.url)}>{$t(item.label)}</a
-							>
+								class:active={$page.url.pathname.includes(item.url)}
+								>{$t(item.label)}
+
+								{#if item.url === '/tickets'}
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke-width="1.5"
+										stroke="currentColor"
+										class="size-6"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 0 1 0 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 0 1 0-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375Z"
+										/>
+									</svg>
+								{/if}
+							</a>
 						</li>
 					{/each}
 				</ul>
@@ -230,7 +268,7 @@
 					width: 100%;
 					color: black;
 					margin: auto 0;
-					max-width: 445px;
+					max-width: 575px;
 					padding: 21px 45px;
 					background: rgba(255, 255, 255, 0.7);
 					backdrop-filter: blur(10px);
@@ -247,9 +285,15 @@
 							font-size: 16px;
 							font-weight: 500;
 							transition: all ease 0.2s;
+							display: flex;
+
+							& > svg {
+								width: 20px;
+								margin-left: 10px;
+							}
 
 							& > span {
-								width: 18px;
+								width: 15px;
 								display: inline-block;
 								transition: all ease 0.2s;
 								&:hover {
@@ -358,6 +402,13 @@
 							font-size: 24px;
 							font-weight: 500;
 							color: #272727;
+							display: flex;
+							justify-content: center;
+
+							& > svg {
+								width: 20px;
+								margin-left: 15px;
+							}
 
 							&.active {
 								opacity: 0.5;

@@ -1,12 +1,12 @@
 <script>
 	import Image from '../../components/contacts/Image.svelte';
-	import Form from '../../components/contacts/Form.svelte';
+	import Form from '../../components/tickets/Form.svelte';
 	import Contacts from '../../components/contacts/Contacts.svelte';
 </script>
 
 <div id="contacts">
 	<div>
-		<Image imageLabel="Contactos Aquitex" imageUrl="/contacts/image.jpg" />
+		<!--Image imageLabel="Contactos Aquitex" imageUrl="/event/image.jpg" /-->
 		<Form />
 	</div>
 

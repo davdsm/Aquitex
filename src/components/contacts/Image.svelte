@@ -1,9 +1,11 @@
-<script>
+<script lang="ts">
+	export let imageUrl: string;
+	export let imageLabel: string;
 	import { fly } from 'svelte/transition';
 </script>
 
 <div class="image" in:fly={{ duration: 300, delay: 400, y: 20 }} out:fly={{ duration: 300, y: 20 }}>
-	<img src="/contacts/image.jpg" alt="Contactos Aquitex" />
+	<img src={imageUrl} alt={imageLabel} />
 </div>
 
 <style lang="scss">
