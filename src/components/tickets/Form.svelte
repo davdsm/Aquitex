@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { sendMail } from '$lib';
+	import { API } from '$lib/calls/api';
 	import { t } from '$lib/i18n/i18n';
 	import { onMount } from 'svelte';
 	import { fly } from 'svelte/transition';
@@ -7,13 +8,27 @@
 	let checkboxIcon: HTMLElement;
 	let checkboxDiretction = 1;
 	let checkboxAnimation: any;
+	let dinneIcon: HTMLElement;
+	let dinnerDirection = 1;
+	let dinnerAnimation: any;
 	let error: string = $state('');
 	let name: string = $state('');
 	let email: string = $state('');
 	let institution: string = $state('');
-	let dinner: boolean = $state(false);
 	let isLoading: boolean = $state(false);
 	let success: boolean = $state(false);
+
+	const handleClickCheckbox = () => {
+		checkboxIcon.click();
+	};
+
+	const handleClickDinner = () => {
+		dinneIcon.click();
+	};
+
+	const actSuccess = () => {
+		API.setPaymentTrue(localStorage.getItem('paymentId') || '');
+	};
 
 	const submitForm = async (e: Event) => {
 		e.preventDefault();
@@ -33,34 +48,31 @@
 			return;
 		}
 
+		window.open('https://www.paypal.com/ncp/payment/E36QJV4D9KWN6');
+
 		isLoading = true;
+		const paymentId = 'id' + Math.random().toString(16).slice(2);
+		localStorage.setItem('paymentId', paymentId);
+		const res = await API.createPayment(name, email, institution, dinnerDirection !== 1, paymentId);
 
-		setTimeout(async () => {
-			// TODO: DO PAYMENT HERE
-			localStorage.setItem('paymentId', "id" + Math.random().toString(16).slice(2))
-			name = '';
-			email = '';
-			institution = '';
-			dinner = false;
-			isLoading = false;
-		}, 500);
-
-	};
-
-	const actSuccess = () => {
-		console.log('success...');
-		localStorage.removeItem('paymentId')
-		window.location.search = "";
-	}
-
-	const handleClickCheckbox = () => {
-		checkboxIcon.click();
+		name = '';
+		email = '';
+		institution = '';
+		isLoading = false;
 	};
 
 	onMount(() => {
 		import('lottie-web').then((lottie: any) => {
 			checkboxAnimation = lottie.loadAnimation({
 				container: checkboxIcon,
+				renderer: 'svg',
+				loop: false,
+				autoplay: false,
+				path: '/animations/checkbox/checkbox.json'
+			});
+
+			dinnerAnimation = lottie.loadAnimation({
+				container: dinneIcon,
 				renderer: 'svg',
 				loop: false,
 				autoplay: false,
@@ -75,11 +87,17 @@
 			checkboxDiretction = -checkboxDiretction;
 		});
 
+		// Handle click to play the animation in reverse or forward
+		dinneIcon.addEventListener('click', () => {
+			dinnerAnimation.setDirection(dinnerDirection);
+			dinnerAnimation.play();
+			dinnerDirection = -dinnerDirection;
+		});
+
 		const urlParams = window.location.search;
-		if(urlParams === "?success=true") {
+		if (urlParams === '?success=true') {
 			actSuccess();
 		}
-		
 	});
 </script>
 
@@ -87,7 +105,13 @@
 	<h1 in:fly={{ duration: 300, delay: 500, y: 20 }} out:fly={{ duration: 300, y: 20 }}>
 		{$t('contacts.title')}
 	</h1>
-	<form action="" method="get" onsubmit={submitForm}>
+
+	<form
+		action="https://www.paypal.com/ncp/payment/E36QJV4D9KWN6"
+		method="post"
+		target="_blank"
+		onsubmit={submitForm}
+	>
 		<input
 			type="text"
 			bind:value={name}
@@ -107,11 +131,22 @@
 		<input
 			type="text"
 			bind:value={institution}
-			name="email"
+			name="text"
+			id="instituition"
 			placeholder={$t('contacts.institution')}
 			in:fly={{ duration: 300, delay: 700, y: 20 }}
 			out:fly={{ duration: 300, y: 20 }}
 		/>
+		<div
+			class="checkbox dinner"
+			in:fly={{ duration: 300, delay: 900, y: 20 }}
+			out:fly={{ duration: 300, y: 20 }}
+		>
+			<button aria-label="button" type="button" class="checkbox-item" bind:this={dinneIcon}
+			></button>
+			<button type="button" class="text" onclick={handleClickDinner}>{$t('contacts.dinner')}</button
+			>
+		</div>
 		<div
 			class="checkbox"
 			in:fly={{ duration: 300, delay: 900, y: 20 }}
@@ -123,14 +158,37 @@
 				>{$t('contacts.terms')}</button
 			>
 		</div>
-		{
-			// TODO:
-			// ADD BUTTON CODE HERE
-			console.log('test')
-			
-		}
-		<button type="submit">asd</button>
+
+		<button
+			type="submit"
+			in:fly={{ duration: 300, delay: 1000, y: 20 }}
+			out:fly={{ duration: 300, y: 20 }}
+		>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke-width="1.5"
+				stroke="currentColor"
+				class="size-6"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 0 1 0 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 0 1 0-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375Z"
+				/>
+			</svg>
+			{$t('tickets.buy')}
+		</button>
+		<div
+			class="img"
+			in:fly={{ duration: 300, delay: 1100, y: 20 }}
+			out:fly={{ duration: 300, y: 20 }}
+		>
+			<img src="https://www.paypalobjects.com/images/Debit_Credit_APM.svg" alt="cards" />
+		</div>
 	</form>
+
 	{#if error.length > 0}
 		<span class="error" in:fly={{ duration: 300, delay: 500, y: 20 }}>{$t(error)}</span>
 	{/if}
@@ -166,6 +224,10 @@
 				padding: 1.25rem 1.875rem;
 				width: calc(50% - 4.375rem);
 				margin-bottom: 1.25rem;
+
+				&#instituition {
+					width: 100%;
+				}
 			}
 			& > textarea {
 				background: #fff;
@@ -187,6 +249,17 @@
 						scale: 0.6;
 					}
 				}
+
+				&.dinner {
+					margin: 0 0 0 0;
+					& > button {
+						font-size: 1rem;
+						color: #000000;
+						&.checkbox-item {
+							scale: 0.6;
+						}
+					}
+				}
 			}
 			& > button {
 				width: auto;
@@ -196,10 +269,21 @@
 				border-radius: 1.875rem;
 				transition: all ease 2s;
 				font-weight: 600;
+				display: flex;
+				align-items: center;
+				& > svg {
+					width: 25px;
+					margin-right: 15px;
+				}
 				&:hover {
 					transform: translateY(-5px);
 					box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 				}
+			}
+			& > div.img {
+				width: 100%;
+				text-align: left;
+				padding: 20px 0 0 0;
 			}
 		}
 		& > .error,

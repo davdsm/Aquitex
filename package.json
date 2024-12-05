@@ -34,6 +34,7 @@
 		"lenis": "^1.1.16",
 		"locomotive-scroll": "^5.0.0-beta.21",
 		"lottie-web": "^5.12.2",
+		"pocketbase": "^0.22.1",
 		"svelte-carousel": "^1.0.25",
 		"svelte-icons": "^2.1.0"
 	}

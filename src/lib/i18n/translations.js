@@ -238,7 +238,9 @@ export default {
     "contacts.info.title": "We are ready to welcome you!",
     "contacts.info.subtitle": "Information",
     "contacts.info.national": "(call to national landline)",
-    "contacts.info.contact": "Contact"
+    "contacts.info.contact": "Contact",
+
+    "tickets.buy": "Buy Ticket",
 
   },
   pt: {
@@ -483,5 +485,7 @@ export default {
 
     "contacts.sending": "A Enviar...",
     "contacts.sent": "Mensagem Enviada, obrigado.",
+
+    "tickets.buy": "Comprar Bilhete",
   },
 };
