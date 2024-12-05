@@ -10,6 +10,8 @@
 	let error: string = $state('');
 	let name: string = $state('');
 	let email: string = $state('');
+	let institution: string = $state('');
+	let dinner: boolean = $state(false);
 	let isLoading: boolean = $state(false);
 	let success: boolean = $state(false);
 
@@ -38,6 +40,8 @@
 			localStorage.setItem('paymentId', "id" + Math.random().toString(16).slice(2))
 			name = '';
 			email = '';
+			institution = '';
+			dinner = false;
 			isLoading = false;
 		}, 500);
 
@@ -97,6 +101,14 @@
 			bind:value={email}
 			name="email"
 			placeholder={$t('contacts.email')}
+			in:fly={{ duration: 300, delay: 700, y: 20 }}
+			out:fly={{ duration: 300, y: 20 }}
+		/>
+		<input
+			type="text"
+			bind:value={institution}
+			name="email"
+			placeholder={$t('contacts.institution')}
 			in:fly={{ duration: 300, delay: 700, y: 20 }}
 			out:fly={{ duration: 300, y: 20 }}
 		/>
