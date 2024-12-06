@@ -1,9 +1,11 @@
 <script lang="ts">
-	import { sendMail } from '$lib';
+	import { loadScript, type PayPalNamespace } from '@paypal/paypal-js';
+	import env from '$lib/env.json';
 	import { API } from '$lib/calls/api';
-	import { t } from '$lib/i18n/i18n';
+	import { t, locale } from '$lib/i18n/i18n';
 	import { onMount } from 'svelte';
 	import { fly } from 'svelte/transition';
+	import { sendConfirmation } from '$lib';
 
 	let checkboxIcon: HTMLElement;
 	let checkboxDiretction = 1;
@@ -12,11 +14,13 @@
 	let dinnerDirection = 1;
 	let dinnerAnimation: any;
 	let error: string = $state('');
+	let paypalError: string = $state('');
 	let name: string = $state('');
 	let email: string = $state('');
 	let institution: string = $state('');
 	let isLoading: boolean = $state(false);
 	let success: boolean = $state(false);
+	let paymentId: string = '';
 
 	const handleClickCheckbox = () => {
 		checkboxIcon.click();
@@ -27,41 +31,93 @@
 	};
 
 	const actSuccess = () => {
-		API.setPaymentTrue(localStorage.getItem('paymentId') || '');
+		API.setPaymentTrue(paymentId);
+		success = true;
+		sendConfirmation(
+			name,
+			email,
+			$t('tickets.buy.success.email'),
+			$locale.toUpperCase() === 'PT' ? 'PT' : 'EN'
+		);
 	};
 
-	const submitForm = async (e: Event) => {
-		e.preventDefault();
+	const submitForm = async (): Promise<boolean> => {
+
+		success = false;
+
 		error = '';
 
 		if (!name) {
 			error = 'contacts.errors.name';
-			return;
+			return false;
 		}
 
 		if (!email) {
 			error = 'contacts.errors.email';
-			return;
+			return false;
 		}
 		if (checkboxDiretction === 1) {
 			error = 'contacts.errors.checkboxDiretction';
-			return;
+			return false;
 		}
 
-		window.open('https://www.paypal.com/ncp/payment/E36QJV4D9KWN6');
-
 		isLoading = true;
-		const paymentId = 'id' + Math.random().toString(16).slice(2);
-		localStorage.setItem('paymentId', paymentId);
-		const res = await API.createPayment(name, email, institution, dinnerDirection !== 1, paymentId);
-
-		name = '';
-		email = '';
-		institution = '';
-		isLoading = false;
+		paymentId = 'id' + Math.random().toString(16).slice(2);
+		await API.createPayment(name, email, institution, dinnerDirection !== 1, paymentId);
+		return true;
 	};
 
 	onMount(() => {
+		import('lottie-web').then(() =>
+			loadScript({ clientId: env.PAYPAL_ClIENT_ID, currency: 'EUR' }).then(
+				(paypal: PayPalNamespace | null) => {
+					if (paypal) {
+						paypal!.Buttons!({
+							style: {
+								color: 'blue',
+								shape: 'pill'
+							},
+							createOrder: async (data, actions) => {
+								const formIsValid = await submitForm();
+								if (!formIsValid) {
+									// Reject the promise to prevent order creation
+									return Promise.reject(new Error('Form validation failed'));
+								}
+								return actions.order.create({
+									purchase_units: [
+										{
+											amount: {
+												currency_code: 'EUR', // Ensure currency code is uppercase
+												value: '1.00' // Use correct decimal format
+											}
+										}
+									],
+									intent: 'CAPTURE'
+								});
+							},
+							onApprove: async (data, actions) => {
+								await actions!.order!.capture();
+								actSuccess();
+								name = '';
+								email = '';
+								institution = '';
+								isLoading = false;
+							},
+							onError: (err) => {
+								if (!error) {
+									paypalError = err.toString();
+								}
+							},
+
+							onCancel: (err) => {
+								error = 'tickets.buy.cancel';
+							}
+						}).render('#paypal-button-container');
+					}
+				}
+			)
+		);
+
 		import('lottie-web').then((lottie: any) => {
 			checkboxAnimation = lottie.loadAnimation({
 				container: checkboxIcon,
@@ -93,11 +149,6 @@
 			dinnerAnimation.play();
 			dinnerDirection = -dinnerDirection;
 		});
-
-		const urlParams = window.location.search;
-		if (urlParams === '?success=true') {
-			actSuccess();
-		}
 	});
 </script>
 
@@ -106,12 +157,7 @@
 		{$t('contacts.title')}
 	</h1>
 
-	<form
-		action="https://www.paypal.com/ncp/payment/E36QJV4D9KWN6"
-		method="post"
-		target="_blank"
-		onsubmit={submitForm}
-	>
+	<div id="form">
 		<input
 			type="text"
 			bind:value={name}
@@ -159,42 +205,25 @@
 			>
 		</div>
 
-		<button
-			type="submit"
+		<div
+			id="paypal-button-container"
 			in:fly={{ duration: 300, delay: 1000, y: 20 }}
 			out:fly={{ duration: 300, y: 20 }}
-		>
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				fill="none"
-				viewBox="0 0 24 24"
-				stroke-width="1.5"
-				stroke="currentColor"
-				class="size-6"
-			>
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 0 1 0 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 0 1 0-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375Z"
-				/>
-			</svg>
-			{$t('tickets.buy')}
-		</button>
-		<div
-			class="img"
-			in:fly={{ duration: 300, delay: 1100, y: 20 }}
-			out:fly={{ duration: 300, y: 20 }}
-		>
-			<img src="https://www.paypalobjects.com/images/Debit_Credit_APM.svg" alt="cards" />
-		</div>
-	</form>
+		></div>
+	</div>
 
 	{#if error.length > 0}
 		<span class="error" in:fly={{ duration: 300, delay: 500, y: 20 }}>{$t(error)}</span>
 	{/if}
 
+	{#if paypalError.length > 0}
+		<span class="error" in:fly={{ duration: 300, delay: 500, y: 20 }}>{paypalError}</span>
+	{/if}
+
 	{#if success}
-		<span class="success" in:fly={{ duration: 300, delay: 500, y: 20 }}>{$t('contacts.sent')}</span>
+		<span class="success" in:fly={{ duration: 300, delay: 500, y: 20 }}
+			>{$t('tickets.buy.success')}</span
+		>
 	{/if}
 </div>
 
@@ -212,7 +241,7 @@
 			margin: auto;
 			text-align: left;
 		}
-		& > form {
+		& > #form {
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
@@ -229,13 +258,7 @@
 					width: 100%;
 				}
 			}
-			& > textarea {
-				background: #fff;
-				padding: 1.25rem 1.875rem;
-				width: 100%;
-				border-radius: 12px;
-				margin-bottom: 1.25rem;
-			}
+
 			& > .checkbox {
 				margin: 0 0 1.25rem 0;
 				display: flex;
@@ -261,29 +284,9 @@
 					}
 				}
 			}
-			& > button {
-				width: auto;
-				background: #d14338;
-				color: #fff;
-				padding: 1.25rem 2.5rem;
-				border-radius: 1.875rem;
-				transition: all ease 2s;
-				font-weight: 600;
-				display: flex;
-				align-items: center;
-				& > svg {
-					width: 25px;
-					margin-right: 15px;
-				}
-				&:hover {
-					transform: translateY(-5px);
-					box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-				}
-			}
-			& > div.img {
-				width: 100%;
-				text-align: left;
-				padding: 20px 0 0 0;
+			& > div#paypal-button-container {
+				margin: 0;
+				z-index: 0;
 			}
 		}
 		& > .error,

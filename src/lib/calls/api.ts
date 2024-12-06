@@ -1,6 +1,5 @@
 import PocketBase, { type RecordModel } from 'pocketbase';
 import env from "$lib/env.json"
-import { updated } from '$app/stores';
 class api {
 
     private pb: PocketBase;
