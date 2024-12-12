@@ -21,6 +21,55 @@
 	let isLoading: boolean = $state(false);
 	let success: boolean = $state(false);
 	let paymentId: string = '';
+	let options = [
+		{
+			name: 'Standard Fees',
+			list: [
+				{
+					name: 'Non TI Member',
+					value: 800
+				},
+				{
+					name: 'TI Member',
+					value: 660
+				}
+			]
+		},
+		{
+			name: 'Early Bird Fees',
+			list: [
+				{
+					name: 'Non TI Member',
+					value: 660
+				},
+				{
+					name: 'TI Member',
+					value: 515
+				}
+			]
+		},
+		{
+			name: 'Other Fees',
+			list: [
+				{
+					name: 'TI Representative',
+					value: 480
+				},
+				{
+					name: 'Student',
+					value: 240
+				},
+				{
+					name: 'Day Rate',
+					value: 300
+				},
+				{
+					name: 'Day Rate',
+					value: 240
+				}
+			]
+		}
+	];
 
 	const handleClickCheckbox = () => {
 		checkboxIcon.click();
@@ -42,7 +91,6 @@
 	};
 
 	const submitForm = async (): Promise<boolean> => {
-
 		success = false;
 
 		error = '';
@@ -154,7 +202,7 @@
 
 <div class="form">
 	<h1 in:fly={{ duration: 300, delay: 500, y: 20 }} out:fly={{ duration: 300, y: 20 }}>
-		{$t('contacts.title')}
+		{$t('tickets.title')}
 	</h1>
 
 	<div id="form">
@@ -193,6 +241,25 @@
 			<button type="button" class="text" onclick={handleClickDinner}>{$t('contacts.dinner')}</button
 			>
 		</div>
+
+		<div id="pricingTable">
+			{#each options as option}
+				<div class="card">
+					<h6>{option.name}</h6>
+					<ul>
+						{#each option.list as item}
+							<li>
+								<span>
+									{item.name}
+								</span>
+								<b>{item.value}€</b>
+							</li>
+						{/each}
+					</ul>
+				</div>
+			{/each}
+		</div>
+
 		<div
 			class="checkbox"
 			in:fly={{ duration: 300, delay: 900, y: 20 }}
@@ -259,6 +326,21 @@
 				}
 			}
 
+			& > #pricingTable {
+				width: 100%;
+				padding: 30px 0;
+				display: flex;
+				justify-content: center;
+				align-items: flex-start;
+				flex-flow: column;
+				& > .card {
+					margin: 20px 0;
+					& > h6 {
+						font-size: 25px;
+					}
+				}
+			}
+
 			& > .checkbox {
 				margin: 0 0 1.25rem 0;
 				display: flex;
@@ -275,9 +357,17 @@
 
 				&.dinner {
 					margin: 0 0 0 0;
+					background: #d14338;
+					width: auto !important;
+					padding: 0 10px 0 0;
+					border-radius: 3px;
+					color: white;
+
 					& > button {
 						font-size: 1rem;
 						color: #000000;
+						filter: invert(1);
+
 						&.checkbox-item {
 							scale: 0.6;
 						}

@@ -61,7 +61,7 @@
 				<h6>{$t('products.textile')}</h6>
 			</div>
 		</a>
-		<a href="/products/textile" class="product ceramic">
+		<a href="/products/ceramic" class="product ceramic">
 			<svg
 				width="30"
 				height="30"
@@ -91,7 +91,7 @@
 				<h6>{$t('products.ceramic')}</h6>
 			</div>
 		</a>
-		<a href="/products/textile" class="product estetic">
+		<a href="/products/cosmetic" class="product estetic">
 			<svg
 				width="30"
 				height="30"

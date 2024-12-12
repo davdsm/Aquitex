@@ -244,6 +244,7 @@ export default {
     "tickets.buy.cancel": "Payment Canceled",
     "tickets.buy.success": "Ticket bought. A confirmation was send to your email. Please, check on spam folder.",
     "tickets.buy.success.email": "Everything went well, Aquitex team will reach you in the next few days for more information.",
+    "tickets.title": "The 93rd Textile Institute World Conference"
 
   },
   pt: {
@@ -493,6 +494,6 @@ export default {
     "tickets.buy.cancel": "Pagamento Cancelado",
     "tickets.buy.success": "Bilhete Comprado, irá receber um email com a confirmação.",
     "tickets.buy.success.email": "Recebemos a sua compra com sucesso, a Aquitex irá entrar em contacto consigo nos próximos dias para mais informações.",
-
+    "tickets.title": "The 93rd Textile Institute World Conference"
   },
 };
