@@ -251,7 +251,7 @@
 
 				&.estetic {
 					width: 25%;
-					background: url('homepage/products/estetic.png');
+					background: url('/homepage/products/estetic.png');
 					background-position: center center;
 					background-size: cover;
 					background-repeat: no-repeat;

@@ -21,15 +21,18 @@
 	let isLoading: boolean = $state(false);
 	let success: boolean = $state(false);
 	let paymentId: string = '';
+	let activeId: number = $state(1);
 	let options = [
 		{
 			name: 'Standard Fees',
 			list: [
 				{
+					id: 1,
 					name: 'Non TI Member',
 					value: 800
 				},
 				{
+					id: 2,
 					name: 'TI Member',
 					value: 660
 				}
@@ -39,10 +42,12 @@
 			name: 'Early Bird Fees',
 			list: [
 				{
+					id: 3,
 					name: 'Non TI Member',
 					value: 660
 				},
 				{
+					id: 4,
 					name: 'TI Member',
 					value: 515
 				}
@@ -52,18 +57,22 @@
 			name: 'Other Fees',
 			list: [
 				{
+					id: 5,
 					name: 'TI Representative',
 					value: 480
 				},
 				{
+					id: 6,
 					name: 'Student',
 					value: 240
 				},
 				{
+					id: 7,
 					name: 'Day Rate',
 					value: 300
 				},
 				{
+					id: 8,
 					name: 'Day Rate',
 					value: 240
 				}
@@ -77,6 +86,10 @@
 
 	const handleClickDinner = () => {
 		dinneIcon.click();
+	};
+
+	const selectFee = (id: number) => {
+		activeId = id;
 	};
 
 	const actSuccess = () => {
@@ -131,12 +144,22 @@
 									// Reject the promise to prevent order creation
 									return Promise.reject(new Error('Form validation failed'));
 								}
+
+								let eurValue: number = 0;
+
+								options.forEach((item) => {
+									const it = item.list.find((it) => it.id === activeId);
+									if (it) {
+										eurValue = it.value;
+									}
+								});
+
 								return actions.order.create({
 									purchase_units: [
 										{
 											amount: {
 												currency_code: 'EUR', // Ensure currency code is uppercase
-												value: '1.00' // Use correct decimal format
+												value: `${eurValue}` // Use correct decimal format
 											}
 										}
 									],
@@ -238,17 +261,39 @@
 		>
 			<button aria-label="button" type="button" class="checkbox-item" bind:this={dinneIcon}
 			></button>
-			<button type="button" class="text" onclick={handleClickDinner}>{$t('contacts.dinner')}</button
+			<button type="button" class="text" onclick={handleClickDinner}>
+				<svg
+					width="20px"
+					xmlns="http://www.w3.org/2000/svg"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke-width="1.5"
+					stroke="currentColor"
+					class="size-6"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M6.827 6.175A2.31 2.31 0 0 1 5.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 0 0-1.134-.175 2.31 2.31 0 0 1-1.64-1.055l-.822-1.316a2.192 2.192 0 0 0-1.736-1.039 48.774 48.774 0 0 0-5.232 0 2.192 2.192 0 0 0-1.736 1.039l-.821 1.316Z"
+					/>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M16.5 12.75a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM18.75 10.5h.008v.008h-.008V10.5Z"
+					/>
+				</svg>
+
+				{$t('contacts.dinner')}</button
 			>
 		</div>
 
-		<div id="pricingTable">
+		<div id="pricingTable" in:fly={{ duration: 300, delay: 850, y: 20 }} out:fly={{ duration: 300, y: 20 }}>
 			{#each options as option}
 				<div class="card">
 					<h6>{option.name}</h6>
 					<ul>
 						{#each option.list as item}
-							<li>
+							<li class:active={item.id === activeId} onclick={() => selectFee(item.id)}>
 								<span>
 									{item.name}
 								</span>
@@ -337,6 +382,37 @@
 					margin: 20px 0;
 					& > h6 {
 						font-size: 25px;
+						margin: 0;
+						text-align: left;
+					}
+					& > ul {
+						padding: 15px 0;
+						display: flex;
+						justify-content: flex-start;
+						align-items: center;
+						& > li {
+							text-align: left;
+							margin: 0 20px 0 0;
+							border: 1px solid gray;
+							padding: 15px;
+							border-radius: 5px;
+							cursor: pointer;
+							transition: all ease 0.2s;
+							&:hover {
+								transform: translateY(-5px);
+							}
+							&.active {
+								transform: translateY(-5px);
+								background: #0070ba;
+								border-color: #0070ba;
+								color: white !important;
+							}
+							& > span {
+								display: block;
+								margin: 0 0 15px 0;
+								font-weight: 500;
+							}
+						}
 					}
 				}
 			}
@@ -357,7 +433,7 @@
 
 				&.dinner {
 					margin: 0 0 0 0;
-					background: #d14338;
+					background: #0070ba;
 					width: auto !important;
 					padding: 0 10px 0 0;
 					border-radius: 3px;
@@ -367,6 +443,11 @@
 						font-size: 1rem;
 						color: #000000;
 						filter: invert(1);
+						display: flex;
+						align-items: center;
+						& > svg {
+							margin: 0 10px 0 0;
+						}
 
 						&.checkbox-item {
 							scale: 0.6;
