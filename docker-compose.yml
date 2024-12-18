@@ -1,0 +1,14 @@
+services:
+  aquitex:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: aquitex
+    hostname: aquitex
+    restart: always
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true
