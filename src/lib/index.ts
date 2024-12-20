@@ -194,10 +194,10 @@ export const sendConfirmation = async (name: string, email: string, message: str
             davdsmKey: 'd41d8cd98f00b204e9800998ecf8427e'
         },
         body: JSON.stringify({
-            sender: 'Aquitex',
+            sender: lang === "EN" ? 'Aquitex Tickets Service' : 'Serviço de Bilheteira Aquitex',
             receiver: {
-                email: 'geral@davdsm.pt',
-                name: lang === "EN" ? 'Aquitex Tickets Service' : 'Serviço de Bilheteira Aquitex'
+                email,
+                name,
             },
             subject: lang === "EN" ? '🎟️ Your Ticket!' : '🎟️ O seu bilhete!',
             message: `

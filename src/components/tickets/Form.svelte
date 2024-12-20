@@ -18,62 +18,64 @@
 	let name: string = $state('');
 	let email: string = $state('');
 	let institution: string = $state('');
+	let tiNumber: string = $state('');
 	let isLoading: boolean = $state(false);
 	let success: boolean = $state(false);
 	let paymentId: string = '';
 	let activeId: number = $state(1);
+	let activeName: string = $state('');
 	let options = [
 		{
-			name: 'Standard Fees',
+			name: 'tickets.standard',
 			list: [
 				{
 					id: 1,
-					name: 'Non TI Member',
+					name: 'tickets.non-ti-member',
 					value: 800
 				},
 				{
 					id: 2,
-					name: 'TI Member',
+					name: 'tickets.ti-member',
 					value: 660
 				}
 			]
 		},
 		{
-			name: 'Early Bird Fees',
+			name: 'tickets.early',
 			list: [
 				{
 					id: 3,
-					name: 'Non TI Member',
+					name: 'tickets.non-ti-member',
 					value: 660
 				},
 				{
 					id: 4,
-					name: 'TI Member',
+					name: 'tickets.ti-member',
 					value: 515
 				}
 			]
 		},
 		{
-			name: 'Other Fees',
+			name: 'tickets.other',
 			list: [
 				{
 					id: 5,
-					name: 'TI Representative',
+					name: 'tickets.ti-rep',
 					value: 480
 				},
 				{
 					id: 6,
-					name: 'Student',
+					name: 'tickets.student',
 					value: 240
 				},
 				{
 					id: 7,
-					name: 'Day Rate',
+					name: 'tickets.day',
 					value: 300
 				},
 				{
 					id: 8,
-					name: 'Day Rate',
+					name: 'tickets.acmop',
 					value: 240
 				}
 			]
@@ -88,8 +90,9 @@
 		dinneIcon.click();
 	};
 
-	const selectFee = (id: number) => {
+	const selectFee = (id: number, fee: string, name: string) => {
 		activeId = id;
+		activeName = `${$t(fee)} - ${$t(name)}`;
 	};
 
 	const actSuccess = () => {
@@ -124,7 +127,7 @@
 
 		isLoading = true;
 		paymentId = 'id' + Math.random().toString(16).slice(2);
-		await API.createPayment(name, email, institution, dinnerDirection !== 1, paymentId);
+		await API.createPayment(name, email, institution, dinnerDirection !== 1, paymentId, tiNumber, activeName);
 		return true;
 	};
 
@@ -254,6 +257,15 @@
 			in:fly={{ duration: 300, delay: 700, y: 20 }}
 			out:fly={{ duration: 300, y: 20 }}
 		/>
+		<input
+			type="text"
+			bind:value={tiNumber}
+			name="text"
+			id="timember"
+			placeholder={$t('tickets.number')}
+			in:fly={{ duration: 300, delay: 700, y: 20 }}
+			out:fly={{ duration: 300, y: 20 }}
+		/>
 		<div
 			class="checkbox dinner"
 			in:fly={{ duration: 300, delay: 900, y: 20 }}
@@ -287,18 +299,35 @@
 			>
 		</div>
 
-		<div id="pricingTable" in:fly={{ duration: 300, delay: 850, y: 20 }} out:fly={{ duration: 300, y: 20 }}>
+		<div
+			id="pricingTable"
+			in:fly={{ duration: 300, delay: 850, y: 20 }}
+			out:fly={{ duration: 300, y: 20 }}
+		>
 			{#each options as option}
 				<div class="card">
-					<h6>{option.name}</h6>
+					<h6>{$t(option.name)}</h6>
 					<ul>
 						{#each option.list as item}
-							<li class:active={item.id === activeId} onclick={() => selectFee(item.id)}>
+							{#if item.id === 3}
+								<p>{$t('tickets.early.text')}</p>
+							{/if}
+
+							<!-- svelte-ignore a11y_click_events_have_key_events -->
+							<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+							<li
+								class:active={item.id === activeId}
+								onclick={() => selectFee(item.id, option.name, item.name)}
+							>
 								<span>
-									{item.name}
+									{$t(item.name)}
 								</span>
 								<b>{item.value}€</b>
 							</li>
+
+							{#if item.id === 8}
+								<p>{$t('tickets.acmop.text')}</p>
+							{/if}
 						{/each}
 					</ul>
 				</div>
@@ -367,13 +396,17 @@
 				margin-bottom: 1.25rem;
 
 				&#instituition {
-					width: 100%;
+					width: 50%;
+				}
+
+				&#timember {
+					width: 30%;
 				}
 			}
 
 			& > #pricingTable {
 				width: 100%;
-				padding: 30px 0;
+				padding: 30px 0 0;
 				display: flex;
 				justify-content: center;
 				align-items: flex-start;
@@ -390,9 +423,17 @@
 						display: flex;
 						justify-content: flex-start;
 						align-items: center;
+						flex-wrap: wrap;
+						& > p {
+							display: block;
+							width: 100%;
+							padding: 0 0 30px;
+							margin: 0;
+							text-align: left;
+						}
 						& > li {
 							text-align: left;
-							margin: 0 20px 0 0;
+							margin: 10px 20px 30px 0;
 							border: 1px solid gray;
 							padding: 15px;
 							border-radius: 5px;
@@ -418,7 +459,7 @@
 			}
 
 			& > .checkbox {
-				margin: 0 0 1.25rem 0;
+				margin: -20px 0 1.25rem 0;
 				display: flex;
 				justify-content: left;
 				width: 100%;
