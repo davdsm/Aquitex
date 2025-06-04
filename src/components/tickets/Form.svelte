@@ -127,12 +127,20 @@
 
 		isLoading = true;
 		paymentId = 'id' + Math.random().toString(16).slice(2);
-		await API.createPayment(name, email, institution, dinnerDirection !== 1, paymentId, tiNumber, activeName);
+		await API.createPayment(
+			name,
+			email,
+			institution,
+			dinnerDirection !== 1,
+			paymentId,
+			tiNumber,
+			activeName
+		);
 		return true;
 	};
 
 	onMount(() => {
-		import('lottie-web').then(() =>
+		setTimeout(() => {
 			loadScript({ clientId: env.PAYPAL_ClIENT_ID, currency: 'EUR' }).then(
 				(paypal: PayPalNamespace | null) => {
 					if (paypal) {
@@ -189,8 +197,8 @@
 						}).render('#paypal-button-container');
 					}
 				}
-			)
-		);
+			);
+		}, 1000);
 
 		import('lottie-web').then((lottie: any) => {
 			checkboxAnimation = lottie.loadAnimation({
