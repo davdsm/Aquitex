@@ -12,7 +12,7 @@ export const sendMail = async (name: string, email: string, message: string) => 
         body: JSON.stringify({
             sender: 'Aquitex',
             receiver: {
-                email: 'geral@davdsm.pt',
+                email: 'grupo@aquitex.pt',
                 name: 'Administração'
             },
             subject: `Nova Mensagem em Aquitex.com`,
@@ -185,7 +185,7 @@ export const sendMail = async (name: string, email: string, message: string) => 
     return status;
 };
 
-export const sendConfirmation = async (name: string, email: string, message: string, lang: "PT" | "EN") => {
+export const sendConfirmation = async (name: string, email: string, message: string, lang: "PT" | "EN", fromBank?: boolean) => {
     let status: boolean = false;
     await fetch('https://api.davdsm.pt/sendMail', {
         method: 'POST',
@@ -199,7 +199,7 @@ export const sendConfirmation = async (name: string, email: string, message: str
                 email,
                 name,
             },
-            subject: lang === "EN" ? '🎟️ Your Ticket!' : '🎟️ O seu bilhete!',
+            subject: fromBank ? '🎟️ Uma Nova Compra' : lang === "EN" ? '🎟️ Your Ticket!' : '🎟️ O seu bilhete!',
             message: `
 			
 			<!DOCTYPE html>
@@ -320,7 +320,7 @@ export const sendConfirmation = async (name: string, email: string, message: str
 													<table class="heading_block block-2" width="100%" border="0" cellpadding="10" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
 														<tr>
 															<td class="pad">
-																<h1 style="margin: 0; color: #000; direction: ltr; font-family: 'Cabin', Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size: 25px; font-weight: 700; letter-spacing: normal; line-height: 120%; text-align: center; margin-top: 20px; margin-bottom: 0; mso-line-height-alt: 30px;"><span class="tinyMce-placeholder" style="word-break: break-word;">${lang === "PT" ? "Obrigado pela sua compra." : "Thank you for your purchase!"}<br></span></h1>
+																<h1 style="margin: 0; color: #000; direction: ltr; font-family: 'Cabin', Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size: 25px; font-weight: 700; letter-spacing: normal; line-height: 120%; text-align: center; margin-top: 20px; margin-bottom: 0; mso-line-height-alt: 30px;"><span class="tinyMce-placeholder" style="word-break: break-word;">${fromBank ? 'Uma Nova Compra!' : lang === "PT" ? "Obrigado pela sua compra." : "Thank you for your purchase!"}<br></span></h1>
 															</td>
 														</tr>
 													</table>

@@ -24,6 +24,9 @@
 	let paymentId: string = '';
 	let activeId: number = $state(1);
 	let activeName: string = $state('');
+	let modalBankTransfer: boolean = $state(false);
+	let fromBank: boolean = $state(false);
+
 	let options = [
 		{
 			name: 'tickets.standard',
@@ -82,6 +85,14 @@
 		}
 	];
 
+	const getValueById = (id: number) => {
+		for (const group of options) {
+			const item = group.list.find((entry) => entry.id === id);
+			if (item) return item.value;
+		}
+		return null;
+	};
+
 	const handleClickCheckbox = () => {
 		checkboxIcon.click();
 	};
@@ -96,14 +107,34 @@
 	};
 
 	const actSuccess = () => {
-		API.setPaymentTrue(paymentId);
+		if (!fromBank) {
+			API.setPaymentTrue(paymentId);
+		}
+
 		success = true;
 		sendConfirmation(
 			name,
 			email,
-			$t('tickets.buy.success.email'),
+			$t('tickets.buy.success.email') +
+				(fromBank
+					? `<br/><br/>ID: ${paymentId}, <br/>IBAN: PT50.0033.0000.00000125519.05<br/>SWIFT/BIC: BCOMPTPL<br/>Value - ` +
+						getValueById(activeId) +
+						'€'
+					: ''),
 			$locale.toUpperCase() === 'PT' ? 'PT' : 'EN'
 		);
+
+		if (fromBank) {
+			sendConfirmation(
+				name,
+				'bookings.tiwc25@aquitex.pt',
+				`Uma nova compra foi feita por transferência bancária. <br/><br/> Com o nome: ${name} <br /> Email: ${email} <br /> Instituição: ${institution} <br /> Número de membro TI: ${tiNumber} <br /> Opção selecionada: ${activeName}<br/><br/>. ID: ${paymentId}<br />Valor: ` +
+					getValueById(activeId) +
+					'€',
+				$locale.toUpperCase() === 'PT' ? 'PT' : 'EN',
+				true
+			);
+		}
 	};
 
 	const submitForm = async (): Promise<boolean> => {
@@ -137,6 +168,18 @@
 			activeName
 		);
 		return true;
+	};
+
+	const payByBankTransfer = async () => {
+		const formIsValid = await submitForm();
+		if (!formIsValid) {
+			// Reject the promise to prevent order creation
+			return Promise.reject(new Error('Form validation failed'));
+		}
+		fromBank = true;
+		isLoading = true;
+		actSuccess();
+		modalBankTransfer = true;
 	};
 
 	onMount(() => {
@@ -354,12 +397,68 @@
 			>
 		</div>
 
-		<div
-			id="paypal-button-container"
-			in:fly={{ duration: 300, delay: 1000, y: 20 }}
-			out:fly={{ duration: 300, y: 20 }}
-		></div>
+		<div id="payments">
+			<div
+				id="bank-transfer-payment"
+				in:fly={{ duration: 300, delay: 1000, y: 20 }}
+				out:fly={{ duration: 300, y: 10 }}
+			>
+				<button type="submit" class="text" onclick={payByBankTransfer}>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="1.5"
+						stroke="currentColor"
+						class=""
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
+						/>
+					</svg>
+
+					{$t('contacts.bankTransfer')}
+				</button>
+			</div>
+
+			<div
+				id="paypal-button-container"
+				in:fly={{ duration: 300, delay: 1000, y: 20 }}
+				out:fly={{ duration: 300, y: 20 }}
+			></div>
+		</div>
 	</div>
+	{#if modalBankTransfer}
+		<dialog id="modal-bank">
+			<div id="cortin"></div>
+
+			<div>
+				<button
+					type="button"
+					class="text"
+					aria-label="Close modal"
+					onclick={() => {
+						modalBankTransfer = false;
+					}}>&times;</button
+				>
+				<h1>Informações Bancárias</h1>
+				<hr />
+				<ul>
+					<li>
+						<span>Nome: </span> AQUITEX ACABAMENTOS QUIMICOS TEXTEIS SA
+					</li>
+					<li>
+						<span>IBAN: </span> PT50.0033.0000.00000125519.05
+					</li>
+					<li>
+						<span>SWIFT/BIC: </span> BCOMPTPL
+					</li>
+				</ul>
+			</div>
+		</dialog>
+	{/if}
 
 	{#if error.length > 0}
 		<span class="error" in:fly={{ duration: 300, delay: 500, y: 20 }}>{$t(error)}</span>
@@ -504,11 +603,101 @@
 					}
 				}
 			}
-			& > div#paypal-button-container {
-				margin: 0;
-				z-index: 0;
+
+			& > #payments {
+				display: flex;
+				justify-content: start;
+				align-items: flex-start;
+				flex-flow: column;
+				width: 100%;
+				div#bank-transfer-payment {
+					margin: 0;
+
+					& > button {
+						background: #d14338;
+						color: #fff;
+						padding: 10px 30px;
+						border-radius: 60px;
+						font-size: 15px;
+						margin-bottom: 20px;
+						display: flex;
+						align-items: center;
+						justify-content: space-between;
+						& > svg {
+							width: 20px;
+							margin-right: 15px;
+						}
+					}
+				}
+				& > div#paypal-button-container {
+					margin: 0;
+					z-index: 0;
+				}
 			}
 		}
+
+		& > dialog#modal-bank {
+			width: 100%;
+			height: 100%;
+			background: rgba(0, 0, 0, 0.5);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			position: fixed;
+			top: 0;
+			left: 0;
+			& > #cortin {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				background: rgba(0, 0, 0, 0.5);
+			}
+
+			& > div {
+				background: #fff;
+				padding: 2rem;
+				border-radius: 12px;
+				z-index: 1;
+				position: relative;
+				& > button {
+					position: absolute;
+					top: 10px;
+					right: 20px;
+					background: none;
+					border: none;
+					color: #000;
+					font-size: 2rem;
+					cursor: pointer;
+				}
+				& > h1 {
+					margin-bottom: 1rem;
+					font-size: 2rem;
+					color: #d14338;
+					font-weight: bold;
+					text-align: left;
+				}
+				& > hr {
+					border: 1px solid black;
+					margin: 1rem 0;
+					width: 20%;
+				}
+				& > ul {
+					list-style-type: none;
+					text-align: left;
+					padding: 20px 0;
+					& > li {
+						margin-bottom: 1rem;
+						font-size: 1rem;
+						color: #525256;
+
+						& > span {
+							font-weight: bold;
+						}
+					}
+				}
+			}
+		}
+
 		& > .error,
 		& > .success {
 			background: #d14338;

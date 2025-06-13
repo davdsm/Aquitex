@@ -89,6 +89,7 @@ export default {
 		'contacts.errors.message': `Won’t you leave a message?`,
 		'contacts.errors.email': `We need an email.`,
 		'contacts.errors.checkboxDiretction': `You must accept the terms of the reservation.`,
+		'contacts.bankTransfer': "Bank Transfer",
 
 		'products.list.textile.preparation': 'Preparation',
 		'products.list.textile.preparation.dispersants_and_sequestrants':
@@ -273,7 +274,7 @@ export default {
 
 		'tickets.standard': 'Standard Fees',
 		'tickets.early': 'Early Bird Fees',
-		'tickets.early.text': 'These rates are available until 15 June 2025.',
+		'tickets.early.text': 'These rates are available until 30 June 2025.',
 		'tickets.other': 'Other Fees'
 	},
 	pt: {
@@ -366,6 +367,7 @@ export default {
 		'contacts.errors.message': `Não vai deixar nenhuma mensagem?`,
 		'contacts.errors.email': `Precisamos de um mail.`,
 		'contacts.errors.checkboxDiretction': `Necessita de aceitar os termos da reserva.`,
+		'contacts.bankTransfer': "Transferência Bancária",
 
 		'products.list.textile.preparation': 'Preparação',
 		'products.list.textile.preparation.dispersants_and_sequestrants':
@@ -554,7 +556,7 @@ export default {
 
 		'tickets.standard': 'Tarifa Standard',
 		'tickets.early': 'Acesso Antecipado',
-		'tickets.early.text': 'Apenas válido até 15 de junho de 2025.',
+		'tickets.early.text': 'Apenas válido até 30 de junho de 2025.',
 		'tickets.other': 'Outras Tarifas'
 	}
 };
