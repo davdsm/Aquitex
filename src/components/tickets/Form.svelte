@@ -134,6 +134,16 @@
 				$locale.toUpperCase() === 'PT' ? 'PT' : 'EN',
 				true
 			);
+		} else {
+			sendConfirmation(
+				name,
+				'bookings.tiwc25@aquitex.pt',
+				`Uma nova compra foi feita por PayPal. <br/><br/> Com o nome: ${name} <br /> Email: ${email} <br /> Instituição: ${institution} <br /> Número de membro TI: ${tiNumber} <br /> Opção selecionada: ${activeName}<br/><br/>. ID: ${paymentId}<br />Valor: ` +
+					getValueById(activeId) +
+					'€',
+				$locale.toUpperCase() === 'PT' ? 'PT' : 'EN',
+				true
+			);
 		}
 	};
 
@@ -165,7 +175,8 @@
 			dinnerDirection !== 1,
 			paymentId,
 			tiNumber,
-			activeName
+			activeName,
+			fromBank ? 'Transferência Bancária' : 'Paypal'
 		);
 		return true;
 	};

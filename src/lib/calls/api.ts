@@ -16,7 +16,7 @@ class api {
         );
     }
 
-    public async createPayment(name: string, email: string, instituition: string, dinner: boolean, paymentId: string, tiNumber: string, ticketName: string): Promise<RecordModel> {
+    public async createPayment(name: string, email: string, instituition: string, dinner: boolean, paymentId: string, tiNumber: string, ticketName: string, paymentMethod: string): Promise<RecordModel> {
         const data = {
             "PaymentId": paymentId,
             "Name": name,
@@ -26,6 +26,7 @@ class api {
             "Paid": false,
             "MembershipNumber": tiNumber,
             "Ticket": ticketName,
+            "PaymentMethod": paymentMethod
         };
 
         return await this.pb.collection('Aquitex_Form').create(data);
