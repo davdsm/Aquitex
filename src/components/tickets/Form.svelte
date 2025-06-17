@@ -193,11 +193,11 @@
 								shape: 'pill'
 							},
 							createOrder: async (data, actions) => {
-								const formIsValid = await submitForm();
+								/* const formIsValid = await submitForm();
 								if (!formIsValid) {
 									// Reject the promise to prevent order creation
 									return Promise.reject(new Error('Form validation failed'));
-								}
+								} */
 
 								let eurValue: number = 0;
 

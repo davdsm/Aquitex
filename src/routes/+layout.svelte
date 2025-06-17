@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import LocomotiveScroll from 'locomotive-scroll';
 	import Footer from '../components/layout/Footer.svelte';
 	import Header from '../components/layout/Header.svelte';
 	import MouseAnimation from '../components/mouseAnimation/MouseAnimation.svelte';
@@ -10,7 +9,6 @@
 	let { children } = $props();
 
 	onMount(() => {
-		const locomotiveScroll = new LocomotiveScroll();
 		isReady = true;
 	});
 </script>
