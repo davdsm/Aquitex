@@ -89,7 +89,8 @@ export default {
 		'contacts.errors.message': `Won’t you leave a message?`,
 		'contacts.errors.email': `We need an email.`,
 		'contacts.errors.checkboxDiretction': `You must accept the terms of the reservation.`,
-		'contacts.bankTransfer': "Bank Transfer",
+		'contacts.bankTransfer': 'Bank Transfer',
+		'contacts.confirmBuy': 'Cofirm Purchase',
 
 		'products.list.textile.preparation': 'Preparation',
 		'products.list.textile.preparation.dispersants_and_sequestrants':
@@ -367,7 +368,8 @@ export default {
 		'contacts.errors.message': `Não vai deixar nenhuma mensagem?`,
 		'contacts.errors.email': `Precisamos de um mail.`,
 		'contacts.errors.checkboxDiretction': `Necessita de aceitar os termos da reserva.`,
-		'contacts.bankTransfer': "Transferência Bancária",
+		'contacts.bankTransfer': 'Transferência Bancária',
+		'contacts.confirmBuy': 'Confirmar Compra',
 
 		'products.list.textile.preparation': 'Preparação',
 		'products.list.textile.preparation.dispersants_and_sequestrants':

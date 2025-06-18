@@ -26,6 +26,7 @@
 	let activeName: string = $state('');
 	let modalBankTransfer: boolean = $state(false);
 	let fromBank: boolean = $state(false);
+	let payModal: boolean = $state(false);
 
 	let options = [
 		{
@@ -193,67 +194,75 @@
 		modalBankTransfer = true;
 	};
 
-	onMount(() => {
-		setTimeout(() => {
-			loadScript({ clientId: env.PAYPAL_ClIENT_ID, currency: 'EUR' }).then(
-				(paypal: PayPalNamespace | null) => {
-					if (paypal) {
-						paypal!.Buttons!({
-							style: {
-								color: 'blue',
-								shape: 'pill'
-							},
-							createOrder: async (data, actions) => {
-								/* const formIsValid = await submitForm();
-								if (!formIsValid) {
-									// Reject the promise to prevent order creation
-									return Promise.reject(new Error('Form validation failed'));
-								} */
+	const pay = async () => {
+		const formIsValid = await submitForm();
+		if (formIsValid) {
 
-								let eurValue: number = 0;
+			payModal = true;
 
-								options.forEach((item) => {
-									const it = item.list.find((it) => it.id === activeId);
-									if (it) {
-										eurValue = it.value;
+			setTimeout(() => {
+				loadScript({ clientId: env.PAYPAL_ClIENT_ID, currency: 'EUR' }).then(
+					(paypal: PayPalNamespace | null) => {
+						if (paypal) {
+							paypal!.Buttons!({
+								style: {
+									color: 'blue',
+									shape: 'pill'
+								},
+								createOrder: async (data, actions) => {
+									const formIsValid = await submitForm();
+									if (!formIsValid) {
+										// Reject the promise to prevent order creation
+										return Promise.reject(new Error('Form validation failed'));
 									}
-								});
 
-								return actions.order.create({
-									purchase_units: [
-										{
-											amount: {
-												currency_code: 'EUR', // Ensure currency code is uppercase
-												value: `${eurValue}` // Use correct decimal format
-											}
+									let eurValue: number = 0;
+
+									options.forEach((item) => {
+										const it = item.list.find((it) => it.id === activeId);
+										if (it) {
+											eurValue = it.value;
 										}
-									],
-									intent: 'CAPTURE'
-								});
-							},
-							onApprove: async (data, actions) => {
-								await actions!.order!.capture();
-								actSuccess();
-								name = '';
-								email = '';
-								institution = '';
-								isLoading = false;
-							},
-							onError: (err) => {
-								if (!error) {
-									paypalError = err.toString();
+									});
+
+									return actions.order.create({
+										purchase_units: [
+											{
+												amount: {
+													currency_code: 'EUR', // Ensure currency code is uppercase
+													value: `${eurValue}` // Use correct decimal format
+												}
+											}
+										],
+										intent: 'CAPTURE'
+									});
+								},
+								onApprove: async (data, actions) => {
+									await actions!.order!.capture();
+									actSuccess();
+									name = '';
+									email = '';
+									institution = '';
+									isLoading = false;
+								},
+								onError: (err) => {
+									if (!error) {
+										paypalError = err.toString();
+									}
+								},
+
+								onCancel: (err) => {
+									error = 'tickets.buy.cancel';
 								}
-							},
-
-							onCancel: (err) => {
-								error = 'tickets.buy.cancel';
-							}
-						}).render('#paypal-button-container');
+							}).render('#paypal-button-container');
+						}
 					}
-				}
-			);
-		}, 1000);
+				);
+			}, 1000);
+		}
+	};
 
+	onMount(() => {
 		import('lottie-web').then((lottie: any) => {
 			checkboxAnimation = lottie.loadAnimation({
 				container: checkboxIcon,
@@ -294,153 +303,163 @@
 	</h1>
 
 	<div id="form">
-		<input
-			type="text"
-			bind:value={name}
-			name="name"
-			placeholder={$t('contacts.name')}
-			in:fly={{ duration: 300, delay: 600, y: 20 }}
-			out:fly={{ duration: 300, y: 20 }}
-		/>
-		<input
-			type="email"
-			bind:value={email}
-			name="email"
-			placeholder={$t('contacts.email')}
-			in:fly={{ duration: 300, delay: 700, y: 20 }}
-			out:fly={{ duration: 300, y: 20 }}
-		/>
-		<input
-			type="text"
-			bind:value={institution}
-			name="text"
-			id="instituition"
-			placeholder={$t('contacts.institution')}
-			in:fly={{ duration: 300, delay: 700, y: 20 }}
-			out:fly={{ duration: 300, y: 20 }}
-		/>
-		<input
-			type="text"
-			bind:value={tiNumber}
-			name="text"
-			id="timember"
-			placeholder={$t('tickets.number')}
-			in:fly={{ duration: 300, delay: 700, y: 20 }}
-			out:fly={{ duration: 300, y: 20 }}
-		/>
-		<div
-			class="checkbox dinner"
-			in:fly={{ duration: 300, delay: 900, y: 20 }}
-			out:fly={{ duration: 300, y: 20 }}
-		>
-			<button aria-label="button" type="button" class="checkbox-item" bind:this={dinneIcon}
-			></button>
-			<button type="button" class="text" onclick={handleClickDinner}>
-				<svg
-					width="20px"
-					xmlns="http://www.w3.org/2000/svg"
-					fill="none"
-					viewBox="0 0 24 24"
-					stroke-width="1.5"
-					stroke="currentColor"
-					class="size-6"
-				>
-					<path
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						d="M6.827 6.175A2.31 2.31 0 0 1 5.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 0 0-1.134-.175 2.31 2.31 0 0 1-1.64-1.055l-.822-1.316a2.192 2.192 0 0 0-1.736-1.039 48.774 48.774 0 0 0-5.232 0 2.192 2.192 0 0 0-1.736 1.039l-.821 1.316Z"
-					/>
-					<path
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						d="M16.5 12.75a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM18.75 10.5h.008v.008h-.008V10.5Z"
-					/>
-				</svg>
-
-				{$t('contacts.dinner')}</button
-			>
-		</div>
-
-		<div
-			id="pricingTable"
-			in:fly={{ duration: 300, delay: 850, y: 20 }}
-			out:fly={{ duration: 300, y: 20 }}
-		>
-			{#each options as option}
-				<div class="card">
-					<h6>{$t(option.name)}</h6>
-					<ul>
-						{#each option.list as item}
-							{#if item.id === 3}
-								<p>{$t('tickets.early.text')}</p>
-							{/if}
-
-							<!-- svelte-ignore a11y_click_events_have_key_events -->
-							<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-							<li
-								class:active={item.id === activeId}
-								onclick={() => selectFee(item.id, option.name, item.name)}
-							>
-								<span>
-									{$t(item.name)}
-								</span>
-								<b>{item.value}€</b>
-							</li>
-
-							{#if item.id === 8}
-								<p>{$t('tickets.acmop.text')}</p>
-							{/if}
-						{/each}
-					</ul>
-				</div>
-			{/each}
-		</div>
-
-		<div
-			class="checkbox"
-			in:fly={{ duration: 300, delay: 900, y: 20 }}
-			out:fly={{ duration: 300, y: 20 }}
-		>
-			<button aria-label="button" type="button" class="checkbox-item" bind:this={checkboxIcon}
-			></button>
-			<button type="button" class="text" onclick={handleClickCheckbox}
-				>{$t('contacts.terms')}</button
-			>
-		</div>
-
-		<div id="payments">
+		{#if !payModal}
+			<input
+				type="text"
+				bind:value={name}
+				name="name"
+				placeholder={$t('contacts.name')}
+				in:fly={{ duration: 300, delay: 600, y: 20 }}
+				out:fly={{ duration: 300, y: 20 }}
+			/>
+			<input
+				type="email"
+				bind:value={email}
+				name="email"
+				placeholder={$t('contacts.email')}
+				in:fly={{ duration: 300, delay: 700, y: 20 }}
+				out:fly={{ duration: 300, y: 20 }}
+			/>
+			<input
+				type="text"
+				bind:value={institution}
+				name="text"
+				id="instituition"
+				placeholder={$t('contacts.institution')}
+				in:fly={{ duration: 300, delay: 700, y: 20 }}
+				out:fly={{ duration: 300, y: 20 }}
+			/>
+			<input
+				type="text"
+				bind:value={tiNumber}
+				name="text"
+				id="timember"
+				placeholder={$t('tickets.number')}
+				in:fly={{ duration: 300, delay: 700, y: 20 }}
+				out:fly={{ duration: 300, y: 20 }}
+			/>
 			<div
-				id="bank-transfer-payment"
-				in:fly={{ duration: 300, delay: 1000, y: 20 }}
-				out:fly={{ duration: 300, y: 10 }}
+				class="checkbox dinner"
+				in:fly={{ duration: 300, delay: 900, y: 20 }}
+				out:fly={{ duration: 300, y: 20 }}
 			>
-				<button type="submit" class="text" onclick={payByBankTransfer}>
+				<button aria-label="button" type="button" class="checkbox-item" bind:this={dinneIcon}
+				></button>
+				<button type="button" class="text" onclick={handleClickDinner}>
 					<svg
+						width="20px"
 						xmlns="http://www.w3.org/2000/svg"
 						fill="none"
 						viewBox="0 0 24 24"
 						stroke-width="1.5"
 						stroke="currentColor"
-						class=""
+						class="size-6"
 					>
 						<path
 							stroke-linecap="round"
 							stroke-linejoin="round"
-							d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
+							d="M6.827 6.175A2.31 2.31 0 0 1 5.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 0 0-1.134-.175 2.31 2.31 0 0 1-1.64-1.055l-.822-1.316a2.192 2.192 0 0 0-1.736-1.039 48.774 48.774 0 0 0-5.232 0 2.192 2.192 0 0 0-1.736 1.039l-.821 1.316Z"
+						/>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M16.5 12.75a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM18.75 10.5h.008v.008h-.008V10.5Z"
 						/>
 					</svg>
 
-					{$t('contacts.bankTransfer')}
-				</button>
+					{$t('contacts.dinner')}</button
+				>
 			</div>
 
 			<div
-				id="paypal-button-container"
-				in:fly={{ duration: 300, delay: 1000, y: 20 }}
+				id="pricingTable"
+				in:fly={{ duration: 300, delay: 850, y: 20 }}
 				out:fly={{ duration: 300, y: 20 }}
-			></div>
-		</div>
+			>
+				{#each options as option}
+					<div class="card">
+						<h6>{$t(option.name)}</h6>
+						<ul>
+							{#each option.list as item}
+								{#if item.id === 3}
+									<p>{$t('tickets.early.text')}</p>
+								{/if}
+
+								<!-- svelte-ignore a11y_click_events_have_key_events -->
+								<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+								<li
+									class:active={item.id === activeId}
+									onclick={() => selectFee(item.id, option.name, item.name)}
+								>
+									<span>
+										{$t(item.name)}
+									</span>
+									<b>{item.value}€</b>
+								</li>
+
+								{#if item.id === 8}
+									<p>{$t('tickets.acmop.text')}</p>
+								{/if}
+							{/each}
+						</ul>
+					</div>
+				{/each}
+			</div>
+
+			<div
+				class="checkbox"
+				in:fly={{ duration: 300, delay: 900, y: 20 }}
+				out:fly={{ duration: 300, y: 20 }}
+			>
+				<button aria-label="button" type="button" class="checkbox-item" bind:this={checkboxIcon}
+				></button>
+				<button type="button" class="text" onclick={handleClickCheckbox}
+					>{$t('contacts.terms')}</button
+				>
+			</div>
+
+			<div in:fly={{ duration: 300, delay: 1000, y: 20 }} out:fly={{ duration: 300, y: 10 }}>
+				<button type="submit" id="buy" onclick={pay}>
+					{$t('contacts.confirmBuy')}
+				</button>
+			</div>
+		{/if}
+		{#if payModal}
+			<div id="payments">
+				<div
+					id="bank-transfer-payment"
+					in:fly={{ duration: 300, delay: 1000, y: 20 }}
+					out:fly={{ duration: 300, y: 10 }}
+				>
+					<button type="submit" class="text" onclick={payByBankTransfer}>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke-width="1.5"
+							stroke="currentColor"
+							class=""
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
+							/>
+						</svg>
+
+						{$t('contacts.bankTransfer')}
+					</button>
+				</div>
+
+				<div
+					id="paypal-button-container"
+					in:fly={{ duration: 300, delay: 1000, y: 20 }}
+					out:fly={{ duration: 300, y: 20 }}
+				></div>
+			</div>
+		{/if}
 	</div>
+
 	{#if modalBankTransfer}
 		<dialog id="modal-bank">
 			<div id="cortin"></div>
@@ -612,6 +631,22 @@
 							scale: 0.6;
 						}
 					}
+				}
+			}
+
+			& > div > button#buy {
+				background: #d14338;
+				color: #fff;
+				padding: 10px 30px;
+				border-radius: 60px;
+				font-size: 15px;
+				margin-bottom: 20px;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				& > svg {
+					width: 20px;
+					margin-right: 15px;
 				}
 			}
 
