@@ -276,7 +276,14 @@ export default {
 		'tickets.standard': 'Standard Fees',
 		'tickets.early': 'Early Bird Fees',
 		'tickets.early.text': 'These rates are available until 30 June 2025.',
-		'tickets.other': 'Other Fees'
+		'tickets.other': 'Other Fees',
+
+		'tickets.upload': 'Upload Student Document:',
+		'tickets.choose.day': 'Choose the day:',
+
+		'tickets.choose.first': 'Octobers 8',
+		'tickets.choose.second': 'Octobers 9',
+		'tickets.choose.third': 'Octobers 10',
 	},
 	pt: {
 		'menu.home': 'Início',
@@ -558,7 +565,15 @@ export default {
 
 		'tickets.standard': 'Tarifa Standard',
 		'tickets.early': 'Acesso Antecipado',
-		'tickets.early.text': 'Apenas válido até 31 de junho de 2025.',
-		'tickets.other': 'Outras Tarifas'
+		'tickets.early.text': 'Apenas válido até 31 de julho de 2025.',
+		'tickets.other': 'Outras Tarifas',
+
+		'tickets.upload': 'Faça upload do documento de Estudante:',
+		'tickets.choose.day': 'Escolha o dia:',
+
+		'tickets.choose.first': 'Dia 8 de Outubro',
+		'tickets.choose.second': 'Dia 9 de Outubro',
+		'tickets.choose.third': 'Dia 10 de Outubro',
+
 	}
 };
