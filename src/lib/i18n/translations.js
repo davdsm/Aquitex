@@ -558,7 +558,7 @@ export default {
 
 		'tickets.standard': 'Tarifa Standard',
 		'tickets.early': 'Acesso Antecipado',
-		'tickets.early.text': 'Apenas válido até 30 de junho de 2025.',
+		'tickets.early.text': 'Apenas válido até 31 de junho de 2025.',
 		'tickets.other': 'Outras Tarifas'
 	}
 };
