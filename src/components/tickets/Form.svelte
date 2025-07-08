@@ -32,7 +32,7 @@
 	let studentCardFile: File | null = null;
 
 	let options = [
-		{
+		/* {
 			name: 'tickets.standard',
 			list: [
 				{
@@ -46,7 +46,7 @@
 					value: 660
 				}
 			]
-		},
+		}, */
 		{
 			name: 'tickets.early',
 			list: [

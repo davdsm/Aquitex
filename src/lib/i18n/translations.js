@@ -275,7 +275,7 @@ export default {
 
 		'tickets.standard': 'Standard Fees',
 		'tickets.early': 'Early Bird Fees',
-		'tickets.early.text': 'These rates are available until 30 June 2025.',
+		'tickets.early.text': 'These rates are available until 31 July 2025.',
 		'tickets.other': 'Other Fees',
 
 		'tickets.upload': 'Upload Student Document:',
