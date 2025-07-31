@@ -7,6 +7,69 @@
 	import { fly } from 'svelte/transition';
 	import { sendConfirmation } from '$lib';
 
+	let originalOptions = [
+		{
+			name: 'tickets.standard',
+			list: [
+				{
+					id: 1,
+					name: 'tickets.non-ti-member',
+					value: 800
+				},
+				{
+					id: 2,
+					name: 'tickets.ti-member',
+					value: 660
+				}
+			]
+		},
+		/* {
+			name: 'tickets.early',
+			list: [
+				{
+					id: 3,
+					name: 'tickets.non-ti-member',
+					value: 660
+				},
+				{
+					id: 4,
+					name: 'tickets.ti-member',
+					value: 515
+				}
+			]
+		}, */
+		{
+			name: 'tickets.other',
+			list: [
+				{
+					id: 5,
+					name: 'tickets.ti-rep',
+					value: 480
+				},
+				{
+					id: 6,
+					name: 'tickets.student',
+					value: 240
+				},
+				{
+					id: 7,
+					name: 'tickets.day',
+					value: 300
+				},
+				{
+					id: 8,
+					name: 'tickets.acmop',
+					value: 240
+				},
+				{
+					id: 9,
+					name: 'tickets.gala-dinner',
+					value: 90
+				}
+			]
+		}
+	];
+
 	let options = $state([
 		{
 			name: 'tickets.standard',
@@ -118,6 +181,10 @@
 	};
 
 	const selectFee = (id: number, fee: string, name: string) => {
+		couponError = false;
+		couponSuccess = false;
+		options = originalOptions;
+		coupon = '';
 		activeId = id;
 		activeName = `${$t(fee)} - ${$t(name)}`;
 		const option = options.find((item) => item.list.find((option) => option.id === activeId));
@@ -290,6 +357,12 @@
 			option?.list.map((opt) => {
 				if (opt.id === selectedFee?.id) opt.value = value;
 			});
+		}
+
+		if (!status) {
+			console.log('status...', status);
+
+			options = originalOptions;
 		}
 
 		couponError = !status;
