@@ -284,6 +284,9 @@ export default {
 		'tickets.choose.first': 'Octobers 8',
 		'tickets.choose.second': 'Octobers 9',
 		'tickets.choose.third': 'Octobers 10',
+
+		'tickets.gala-dinner': 'Gala Dinner',
+		'tickets.coupon': 'Coupon Code'
 	},
 	pt: {
 		'menu.home': 'Início',
@@ -575,5 +578,7 @@ export default {
 		'tickets.choose.second': 'Dia 9 de Outubro',
 		'tickets.choose.third': 'Dia 10 de Outubro',
 
+		'tickets.gala-dinner': 'Jantar de Gala',
+		'tickets.coupon': 'Cupão de Desconto'
 	}
 };

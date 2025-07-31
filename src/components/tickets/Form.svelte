@@ -7,32 +7,8 @@
 	import { fly } from 'svelte/transition';
 	import { sendConfirmation } from '$lib';
 
-	let checkboxIcon: HTMLElement;
-	let checkboxDiretction = 1;
-	let checkboxAnimation: any;
-	let dinneIcon: HTMLElement;
-	let dinnerDirection = 1;
-	let dinnerAnimation: any;
-	let error: string = $state('');
-	let paypalError: string = $state('');
-	let name: string = $state('');
-	let email: string = $state('');
-	let institution: string = $state('');
-	let tiNumber: string = $state('');
-	let isLoading: boolean = $state(false);
-	let success: boolean = $state(false);
-	let paymentId: string = '';
-	let activeId: number = $state(1);
-	let activeName: string = $state('');
-	let modalBankTransfer: boolean = $state(false);
-	let fromBank: boolean = $state(false);
-	let payModal: boolean = $state(false);
-	let isPaymentByCard: boolean = $state(false);
-	let selectedDay: string = $state('');
-	let studentCardFile: File | null = null;
-
-	let options = [
-		/* {
+	let options = $state([
+		{
 			name: 'tickets.standard',
 			list: [
 				{
@@ -46,8 +22,8 @@
 					value: 660
 				}
 			]
-		}, */
-		{
+		},
+		/* {
 			name: 'tickets.early',
 			list: [
 				{
@@ -61,7 +37,7 @@
 					value: 515
 				}
 			]
-		},
+		}, */
 		{
 			name: 'tickets.other',
 			list: [
@@ -85,9 +61,45 @@
 					name: 'tickets.acmop',
 					value: 240
 				},
+				{
+					id: 9,
+					name: 'tickets.gala-dinner',
+					value: 90
+				}
 			]
 		}
-	];
+	]);
+
+	let checkboxIcon: HTMLElement;
+	let checkboxDiretction = 1;
+	let checkboxAnimation: any;
+	let dinneIcon: HTMLElement;
+	let dinnerDirection = 1;
+	let dinnerAnimation: any;
+	let error: string = $state('');
+	let paypalError: string = $state('');
+	let name: string = $state('');
+	let email: string = $state('');
+	let institution: string = $state('');
+	let tiNumber: string = $state('');
+	let isLoading: boolean = $state(false);
+	let success: boolean = $state(false);
+	let paymentId: string = '';
+	let activeId: number = $state(1);
+	let activeName: string = $state('');
+	let modalBankTransfer: boolean = $state(false);
+	let fromBank: boolean = $state(false);
+	let payModal: boolean = $state(false);
+	let selectedFee: { id: number; name: string; value: number } | undefined = $state(
+		options[0].list[0]
+	);
+	let isPaymentByCard: boolean = $state(false);
+	let selectedDay: string = $state('');
+	let studentCardFile: File | null = null;
+
+	let coupon: string = $state('');
+	let couponError: boolean = $state(false);
+	let couponSuccess: boolean = $state(false);
 
 	const getValueById = (id: number) => {
 		for (const group of options) {
@@ -108,6 +120,8 @@
 	const selectFee = (id: number, fee: string, name: string) => {
 		activeId = id;
 		activeName = `${$t(fee)} - ${$t(name)}`;
+		const option = options.find((item) => item.list.find((option) => option.id === activeId));
+		selectedFee = option?.list.find((item) => item.id === activeId);
 	};
 
 	const actSuccess = (paypalPaymentId: string) => {
@@ -129,7 +143,7 @@
 		if (fromBank) {
 			sendConfirmation(
 				name,
-				'bookings.tiwc25@aquitex.pt',
+				'samuel_david_8@hotmail.com', // 'bookings.tiwc25@aquitex.pt',
 				`Uma nova compra foi feita por transferência bancária. <br/><br/> Com o nome: ${name} <br /> Email: ${email} <br /> Instituição: ${institution} <br /> Número de membro TI: ${tiNumber} <br /> Opção selecionada: ${activeName}<br/><br/>. ID: ${paymentId}<br />Valor: ` +
 					getValueById(activeId) +
 					'€',
@@ -258,6 +272,28 @@
 				);
 			}, 1000);
 		}
+	};
+
+	const applyCoupon = async () => {
+		if (!coupon) return;
+
+		couponError = false;
+		couponSuccess = false;
+
+		const { status, value } = await API.applyCoupon({
+			couponCode: coupon,
+			activeName: selectedFee?.name || ''
+		});
+
+		if (status) {
+			const option = options.find((item) => item.list.find((option) => option.id === activeId));
+			option?.list.map((opt) => {
+				if (opt.id === selectedFee?.id) opt.value = value;
+			});
+		}
+
+		couponError = !status;
+		couponSuccess = status;
 	};
 
 	onMount(() => {
@@ -511,6 +547,37 @@
 					{/if}
 				</div>
 
+				<div class="coupon">
+					<div>
+						<input
+							type="text"
+							bind:value={coupon}
+							name="text"
+							id="coupon"
+							placeholder={$t('tickets.coupon')}
+							in:fly={{ duration: 300, delay: 700, y: 20 }}
+							out:fly={{ duration: 300, y: 20 }}
+						/>
+						<button onclick={applyCoupon}>Aplicar Cupão</button>
+					</div>
+
+					{#if couponError}
+						<span
+							class="error"
+							in:fly={{ duration: 300, delay: 700, y: 20 }}
+							out:fly={{ duration: 300, y: 20 }}>Cupão Inválido!</span
+						>
+					{/if}
+
+					{#if couponSuccess}
+						<span
+							class="success"
+							in:fly={{ duration: 300, delay: 700, y: 20 }}
+							out:fly={{ duration: 300, y: 20 }}>Cupão Aplicado!</span
+						>
+					{/if}
+				</div>
+
 				<div
 					class="checkbox"
 					in:fly={{ duration: 300, delay: 900, y: 20 }}
@@ -525,7 +592,7 @@
 
 				<div in:fly={{ duration: 300, delay: 1000, y: 20 }} out:fly={{ duration: 300, y: 10 }}>
 					<button type="submit" id="buy" onclick={pay}>
-						{$t('contacts.confirmBuy')}
+						{$t('contacts.confirmBuy')}{selectedFee ? ` - ${selectedFee.value}€` : ''}
 					</button>
 				</div>
 			{/if}
@@ -697,6 +764,40 @@
 								font-weight: 500;
 							}
 						}
+					}
+				}
+			}
+
+			& > .coupon {
+				display: flex;
+				flex-direction: column;
+				margin: 0 0 50px 0;
+				& > div {
+					& > input {
+						border: 1px solid gray;
+						padding: 15px;
+						border-radius: 5px;
+					}
+					& > button {
+						margin: 0 10px;
+						background: #0070ba;
+						padding: 15px;
+						border-radius: 5px;
+						color: #fff;
+					}
+				}
+				& > span {
+					font-size: 14px;
+					padding: 8px 20px;
+					margin: 20px 0 0 0;
+					border-radius: 4px;
+					&.error {
+						background: red;
+						color: #fff;
+					}
+					&.success {
+						background: greenyellow;
+						color: green;
 					}
 				}
 			}

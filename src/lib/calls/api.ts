@@ -76,6 +76,29 @@ class api {
 
 		return false;
 	}
+
+	public async applyCoupon({
+		couponCode,
+		activeName
+	}: {
+		couponCode: string;
+		activeName: string;
+	}): Promise<{
+		status: boolean;
+		value: number;
+	}> {
+		let result;
+
+		try {
+			result = await this.pb
+				.collection('Aquitex_Coupons')
+				.getFirstListItem(`code="${couponCode}" && ticket="${activeName}"`);
+		} catch (error) {
+			return { status: false, value: 0 };
+		}
+
+		return { status: true, value: result.new_price };
+	}
 }
 
 export const API = new api();
