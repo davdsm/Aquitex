@@ -149,7 +149,7 @@
 	let success: boolean = $state(false);
 	let paymentId: string = '';
 	let activeId: number = $state(1);
-	let activeName: string = $state('');
+	let activeName: string = $state(``);
 	let modalBankTransfer: boolean = $state(false);
 	let fromBank: boolean = $state(false);
 	let payModal: boolean = $state(false);
@@ -251,6 +251,9 @@
 
 		isLoading = true;
 		paymentId = 'id' + Math.random().toString(16).slice(2);
+
+		console.log('activeName...', activeName);
+
 		await API.createPayment(
 			name,
 			email,
@@ -401,6 +404,8 @@
 			dinnerAnimation.play();
 			dinnerDirection = -dinnerDirection;
 		});
+
+		selectFee(1, `tickets.standard`, `tickets.non-ti-member`)
 	});
 </script>
 
