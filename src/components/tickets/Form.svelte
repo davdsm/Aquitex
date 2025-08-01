@@ -210,7 +210,7 @@
 		if (fromBank) {
 			sendConfirmation(
 				name,
-				'samuel_david_8@hotmail.com', // 'bookings.tiwc25@aquitex.pt',
+				'bookings.tiwc25@aquitex.pt',
 				`Uma nova compra foi feita por transferência bancária. <br/><br/> Com o nome: ${name} <br /> Email: ${email} <br /> Instituição: ${institution} <br /> Número de membro TI: ${tiNumber} <br /> Opção selecionada: ${activeName}<br/><br/>. ID: ${paymentId}<br />Valor: ` +
 					getValueById(activeId) +
 					'€',
