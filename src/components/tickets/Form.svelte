@@ -251,9 +251,6 @@
 
 		isLoading = true;
 		paymentId = 'id' + Math.random().toString(16).slice(2);
-
-		console.log('activeName...', activeName);
-
 		await API.createPayment(
 			name,
 			email,
@@ -363,8 +360,6 @@
 		}
 
 		if (!status) {
-			console.log('status...', status);
-
 			options = originalOptions;
 		}
 
@@ -405,7 +400,7 @@
 			dinnerDirection = -dinnerDirection;
 		});
 
-		selectFee(1, `tickets.standard`, `tickets.non-ti-member`)
+		selectFee(1, `tickets.standard`, `tickets.non-ti-member`);
 	});
 </script>
 
@@ -664,7 +659,14 @@
 					<button aria-label="button" type="button" class="checkbox-item" bind:this={checkboxIcon}
 					></button>
 					<button type="button" class="text" onclick={handleClickCheckbox}
-						>{$t('contacts.terms')}</button
+						>{$t('contacts.general')}
+						<a href="/terms" target="_blank" style="text-decoration: underline;"
+							>{$t('contacts.terms')}</a
+						>
+						{$t('contacts.and')}
+						<a href="/privacy" target="_blank" style="text-decoration: underline;"
+							>{$t('contacts.privacy')}</a
+						></button
 					>
 				</div>
 
