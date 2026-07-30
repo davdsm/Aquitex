@@ -1,15 +1,16 @@
 import PocketBase, { type RecordModel } from 'pocketbase';
-import env from '$lib/env.json';
+import { PUBLIC_PB_PW, PUBLIC_PB_URL, PUBLIC_PB_USER } from '$env/static/public';
+
 class api {
 	private pb: PocketBase;
 
 	constructor() {
-		this.pb = new PocketBase(env.PB_URL);
+		this.pb = new PocketBase(PUBLIC_PB_URL);
 		this.doLogin();
 	}
 
 	private async doLogin() {
-		await this.pb.collection('users').authWithPassword(env.PB_USER, env.PB_PW);
+		await this.pb.collection('users').authWithPassword(PUBLIC_PB_USER, PUBLIC_PB_PW);
 	}
 
 	public async createPayment(

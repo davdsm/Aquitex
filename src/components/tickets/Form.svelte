@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { loadScript, type PayPalNamespace } from '@paypal/paypal-js';
-	import env from '$lib/env.json';
+	import { PUBLIC_PAYPAL_CLIENT_ID } from '$env/static/public';
 	import { API } from '$lib/calls/api';
 	import { t, locale } from '$lib/i18n/i18n';
 	import { onMount } from 'svelte';
@@ -284,7 +284,7 @@
 			payModal = true;
 			window.scrollTo({ top: 0, behavior: 'smooth' });
 			setTimeout(() => {
-				loadScript({ clientId: env.PAYPAL_ClIENT_ID, currency: 'EUR' }).then(
+				loadScript({ clientId: PUBLIC_PAYPAL_CLIENT_ID, currency: 'EUR' }).then(
 					(paypal: PayPalNamespace | null) => {
 						if (paypal) {
 							paypal!.Buttons!({
